@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Combo Packs | Shri Senthura Crackers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#061a35;
+  --gold:#e4ae43;
+  --gold2:#f7cd65;
+  --cream:#fffaf1;
+  --paper:#fffdf9;
+  --ink:#13213a;
+  --muted:#6e7580;
+  --line:#eadfcd;
+  --red:#c82048;
+  --shadow:0 18px 55px rgba(9,28,55,.12);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:"DM Sans",Arial,sans-serif;
+}
+a{text-decoration:none;color:inherit}
+.top{
+  height:34px;background:var(--navy);color:#fff;overflow:hidden;
+  font-size:10px;white-space:nowrap;
+}
+.top-track{
+  width:max-content;height:100%;display:flex;align-items:center;
+  animation:scroll 22s linear infinite;
+}
+.top-group{height:100%;display:flex;align-items:center;gap:34px;padding-right:34px;flex:0 0 auto}
+.top:hover .top-track{animation-play-state:paused}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-25%)}}
+
+.nav{
+  height:68px;background:#fff;border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:27px;padding:0 clamp(15px,5vw,72px);
+  position:sticky;top:0;z-index:50;
+}
+.logo{width:48px;height:48px;display:grid;place-items:center}
+.logo img{width:100%;height:100%;object-fit:contain}
+.links{display:flex;gap:27px;flex:1;font-size:12px;font-weight:700}
+.links a{padding:25px 0;position:relative}
+.links a:hover,.links a.active{color:#b57a18}
+.links a.active:after{
+  content:"";position:absolute;left:0;right:0;bottom:15px;height:2px;background:#dca33d
+}
+.back{font-size:11px;font-weight:800;color:#b57a18}
+
+.hero{
+  min-height:270px;display:grid;place-items:center;text-align:center;
+  padding:58px 20px 52px;
+background-image:url('assets/combos/combo-bg.png');background-size:cover;background-position:center;
+  color:#fff;position:relative;overflow:hidden;
+}
+
+.kicker{
+  text-transform:uppercase;letter-spacing:4px;font-size:10px;
+  color:#f2c568;font-weight:800;margin-bottom:10px;
+}
+.hero h1{
+  margin:0;font:700 clamp(45px,6vw,72px)/.9 "Cormorant Garamond",serif;
+}
+.hero p{
+  max-width:600px;margin:16px auto 0;color:#dce5ef;
+  font-size:13px;line-height:1.7;
+}
+
+.section{max-width:1260px;margin:auto;padding:42px 20px 70px}
+.heading{text-align:center;margin-bottom:28px}
+.heading h2{font:700 39px "Cormorant Garamond",serif;margin:0}
+.heading p{font-size:10px;color:var(--muted);margin:6px 0 0}
+
+.combo-grid{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;
+}
+.combo{
+  background:#fff;border:1px solid var(--line);border-radius:18px;
+  overflow:hidden;box-shadow:var(--shadow);transition:.28s ease;
+}
+.combo:hover{transform:translateY(-7px);box-shadow:0 24px 55px rgba(9,28,55,.18)}
+.poster-wrap{position:relative;background:#071a35;cursor:pointer;overflow:hidden}
+.poster-wrap img{
+  display:block;width:100%;height:auto;aspect-ratio:2/3;object-fit:cover;
+  transition:transform .45s ease;
+}
+.combo:hover .poster-wrap img{transform:scale(1.025)}
+.zoom{
+  position:absolute;right:12px;top:12px;width:35px;height:35px;
+  border:1px solid rgba(255,255,255,.55);border-radius:50%;
+  background:rgba(0,0,0,.42);color:#fff;display:grid;place-items:center;
+  font-size:14px;
+}
+.combo-body{padding:17px}
+.combo-body h3{
+  margin:0 0 7px;font-size:17px;color:var(--ink)
+}
+.price{
+  font:700 27px "Cormorant Garamond",serif;color:#b87d1c;
+}
+.meta{
+  display:flex;justify-content:space-between;gap:8px;margin:10px 0 15px;
+  font-size:9px;color:var(--muted)
+}
+.badge{
+  display:inline-block;padding:5px 9px;border-radius:20px;
+  background:#fff4d7;color:#9a6713;font-weight:800;
+}
+.actions{display:flex;gap:8px}
+.btn{
+  flex:1;border:0;border-radius:22px;padding:11px 13px;
+  font-size:10px;font-weight:800;cursor:pointer;text-align:center;
+}
+.btn.primary{background:var(--red);color:#fff}
+.btn.primary:hover{background:#a91d3f}
+.btn.secondary{background:var(--navy);color:#fff}
+.btn.secondary:hover{background:#0b315d}
+
+.note{
+  margin:0 auto 35px;max-width:900px;padding:14px 17px;
+  background:#fff8e8;border:1px solid #ead4a3;border-radius:12px;
+  font-size:9px;line-height:1.65;color:#5d513d;text-align:center;
+}
+
+.footer{
+  background:var(--navy);color:#fff;text-align:center;padding:28px 20px;
+}
+.footer strong{font-size:12px}
+.footer p{font-size:9px;color:#bfcbd9;margin:7px 0 0}
+
+.modal{
+  position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:100;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+#n{
+  font-size: 15px;
+}
+.modal.open{display:flex}
+.modal img{
+  max-width:min(94vw,700px);max-height:92vh;object-fit:contain;
+  border-radius:10px;box-shadow:0 25px 90px rgba(0,0,0,.5)
+}
+.close{
+  position:fixed;right:22px;top:18px;width:42px;height:42px;
+  border:0;border-radius:50%;background:#fff;color:#111;font-size:26px;cursor:pointer;
+}
+.contact-choice{position:fixed;right:15px;bottom:18px;z-index:80}
+.contact-choice summary{display:none}
+.contact-choice-options{display:flex!important;flex-direction:column;align-items:center;gap:10px;margin:0;padding:0;border:0;background:transparent;box-shadow:none}
+.contact-choice-options a{width:54px;height:54px;display:grid;place-items:center;padding:0;border-radius:50%;color:#fff;background:#25d366;box-shadow:0 8px 24px rgba(13,74,47,.24);transition:transform .2s ease}
+.contact-choice-options a:first-child{background:#061a35}
+.contact-choice-options a:hover{transform:translateY(-2px);color:#fff}
+.contact-choice-options svg{width:25px;height:25px}
+.contact-choice .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+@media(max-width:900px){
+  .links{gap:15px}
+  .combo-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:650px){
+  .nav{height:60px;padding:0 14px}
+  .links{display:none}
+  .back{margin-left:auto}
+  .hero{min-height:230px;padding:45px 18px}
+  .hero h1{font-size:48px}
+  .hero p{font-size:11px}
+  .section{padding:30px 14px 50px}
+  .heading h2{font-size:34px}
+  .combo-grid{grid-template-columns:1fr}
+  .top-group{gap:22px;padding-right:22px}
+  .top-track{animation-duration:18s}
+}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="top-track">
+    <div class="top-group">
+      <span>Diwali Sale is On!</span><span>Exclusive Festive Offers</span><span>90% OFF</span><span>Eco Friendly Options</span><span>☏ 9940051105</span><span>✉ shrisenthuracrackers@gmail.com</span>
+    </div>
+    <div class="top-group" aria-hidden="true"><span>Diwali Sale is On!</span><span>Exclusive Festive Offers</span><span>90% OFF</span><span>Eco Friendly Options</span><span>☏ 9940051105</span><span>✉ shrisenthuracrackers@gmail.com</span></div>
+    <div class="top-group" aria-hidden="true"><span>Diwali Sale is On!</span><span>Exclusive Festive Offers</span><span>90% OFF</span><span>Eco Friendly Options</span><span>☏ 9940051105</span><span>✉ shrisenthuracrackers@gmail.com</span></div>
+    <div class="top-group" aria-hidden="true"><span>Diwali Sale is On!</span><span>Exclusive Festive Offers</span><span>90% OFF</span><span>Eco Friendly Options</span><span>☏ 9940051105</span><span>✉ shrisenthuracrackers@gmail.com</span></div>
+  </div>
+</div>
+
+<header class="nav">
+  <a class="logo" href="index.html">
+    <img src="assets/ssLogo.png" alt="Shri Senthura Crackers">
+  </a>
+  <nav class="links">
+    <a href="index.html" id="n">Home</a>
+    <a href="new.html" id="n">Shop</a>
+    <a class="active" href="combos.html">Combo Packs</a>
+    <a href="new.html" id="n">Offers</a>
+    <a href="index.html#new" id="n">About</a>
+    <a href="index.html#offers" id="n">Feedback</a>
+    <a href="index.html#contact" id="n">Contact</a>
+  </nav>
+  <a class="back" href="index.html">← Back Home</a>
+</header>
+<details class="contact-choice" open>
+  <summary>Phone or WhatsApp?</summary>
+  <div class="contact-choice-options">
+    <a href="tel:+919940051105" aria-label="Call Shri Senthura Crackers" title="Call Shri Senthura Crackers"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.96.36 1.9.7 2.8a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.84.58 2.8.7a2 2 0 0 1 1.73 2.03Z"/></svg><span class="sr-only">Call 99400 51105</span></a>
+    <a href="https://wa.me/919940051105" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Shri Senthura Crackers" title="WhatsApp Shri Senthura Crackers"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.5a8 8 0 0 1-11.9 7L4 20l1.5-3.7A8 8 0 1 1 20 11.5Z"/><path d="M8.5 8.2c.2-.5.5-.6.9-.6h.6l1.1 2.3-.9 1c.6 1.2 1.5 2.1 2.7 2.7l1-.9 2.3 1.1v.6c0 .4-.1.7-.6.9-1 .4-2.1.3-3.2-.3a10 10 0 0 1-4-4c-.6-1.1-.7-2.2.1-2.8Z"/></svg><span class="sr-only">WhatsApp us</span></a>
+  </div>
+</details>
+
+<section class="hero">
+  <div>
+    <div class="kicker">Shri Senthura Crackers · Karaikal</div>
+    <h1>Festive Combo Packs</h1>
+    <p>Big celebrations, thoughtfully packed. Explore our special Deepavali combo collections and choose the celebration that fits your family.</p>
+  </div>
+</section>
+
+<main class="section">
+  <div class="heading">
+    <div class="kicker">Special Collections</div>
+    <h2>Choose Your Celebration</h2>
+    <p>Tap any poster to view it in full size.</p>
+  </div>
+
+  <div class="note">
+    Combo details, quantities and offer validity are shown in the original posters supplied by Shri Senthura Crackers.
+    Please confirm current availability and ordering details with the store before placing an enquiry.
+  </div>
+
+  <div class="combo-grid">
+
+    <article class="combo">
+      <div class="poster-wrap" onclick="openPoster('assets/combos/p3.jpeg')">
+        <img src="assets/combos/p3.jpeg" alt="Luxury Celebration Combo">
+        <span class="zoom">⌕</span>
+      </div>
+      <div class="combo-body">
+        <span class="badge">87 Items</span>
+        <h3>Luxury Celebration Combo</h3>
+        <div class="price">₹10,000</div>
+        <div class="meta"><span>Premium family collection</span><span>Offer poster</span></div>
+        <div class="actions">
+          <a class="btn secondary" href="new.html" target="_blank">Shop Now</a>
+          <a class="btn primary" href="https://wa.me/919940051105?text=Hi%20Shri%20Senthura%20Crackers%2C%20I%20am%20interested%20in%20the%20Luxury%20Celebration%20Combo." target="_blank">Enquire</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="combo">
+      <div class="poster-wrap" onclick="openPoster('assets/combos/p2.jpeg')">
+        <img src="assets/combos/p2.jpeg" alt="Super Saver Family Combo">
+        <span class="zoom">⌕</span>
+      </div>
+      <div class="combo-body">
+        <span class="badge">75 Items</span>
+        <h3>Super Saver Family Combo</h3>
+        <div class="price">₹7,500</div>
+        <div class="meta"><span>Family celebration pack</span><span>Offer poster</span></div>
+        <div class="actions">
+          <a class="btn secondary" href="new.html" target="_blank">Shop Now</a>
+          <a class="btn primary" href="https://wa.me/919940051105?text=Hi%20Shri%20Senthura%20Crackers%2C%20I%20am%20interested%20in%20the%20Super%20Saver%20Family%20Combo." target="_blank">Enquire</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="combo">
+      <div class="poster-wrap" onclick="openPoster('assets/combos/p1.jpeg')">
+        <img src="assets/combos/p1.jpeg" alt="Deepavali Dhamaka 5K Combo">
+        <span class="zoom">⌕</span>
+      </div>
+      <div class="combo-body">
+        <span class="badge">64 Items</span>
+        <h3>Deepavali Dhamaka 5K Combo</h3>
+        <div class="price">₹5,000</div>
+        <div class="meta"><span>Value celebration pack</span><span>Offer poster</span></div>
+        <div class="actions">
+          <a class="btn secondary" href="new.html" target="_blank">Shop Now</a>
+          <a class="btn primary" href="https://wa.me/919940051105?text=Hi%20Shri%20Senthura%20Crackers%2C%20I%20am%20interested%20in%20the%20Deepavali%20Dhamaka%205K%20Combo." target="_blank">Enquire</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <strong>Shri Senthura Crackers · Karaikal</strong>
+  <p>WhatsApp: 9940051105 · Celebrate safely and responsibly.</p>
+</footer>
+
+<div class="modal" id="modal" onclick="closePoster(event)">
+  <button class="close" type="button" onclick="closePoster()">×</button>
+  <img id="modalImage" src="" alt="Combo poster">
+</div>
+
+<script>
+function openPoster(src){
+  document.getElementById('modalImage').src = src;
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closePoster(e){
+  if(e && e.target && e.target.id !== 'modal') return;
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    document.getElementById('modal').classList.remove('open');
+    document.body.style.overflow='';
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Client Order | Festive Fireworks</title>
+
+<link rel="icon" href="assets/ssLogo.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="billing/supabase-config.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{--navy:#061a35;--navy2:#0b2e55;--gold:#e4ae43;--gold2:#f8cf6c;--cream:#fffaf1;--paper:#fffdf9;--ink:#14233d;--muted:#697382;--line:#eadfcd;--red:#c82048;--shadow:0 18px 55px #071a3517}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:"DM Sans",Arial,sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer}.topbar{height:34px;background:var(--navy);color:#fff;display:block;font-size:10px;white-space:nowrap;overflow:hidden}
+.topbar-track{height:100%;width:max-content;display:flex;align-items:center;gap:32px;padding-right:32px;animation:topbarScroll 22s linear infinite}
+.topbar-track span{flex:0 0 auto}
+.topbar:hover .topbar-track{animation-play-state:paused}
+@keyframes topbarScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}.nav{height:68px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:23px;padding:0 clamp(15px,5vw,72px);position:sticky;top:0;z-index:30}.logo{width:45px;height:45px;display:grid;place-items:center;color:#d22044;font-size:35px;position:relative}.logo:after{content:"";position:absolute;width:25px;height:25px;border:1px solid #dca64a00;border-radius:50%}.nav a{font-size:11px;font-weight:800;text-decoration:none;color:var(--ink)}.nav a:hover{color:#b47716}.spacer{flex:1}.order-tag{background:var(--cream);border:1px solid var(--line);border-radius:20px;padding:9px 14px;color:#9b6712!important}.wrap{max-width:1400px;margin:auto;padding:28px clamp(14px,4vw,55px)}.hero{height:210px;border-radius:24px;overflow:hidden;position:relative;background:url('assets/hero-rocket.png') center/cover}.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#061a35d9,#061a3585 45%,#061a3510 78%)}.hero-copy{position:relative;z-index:2;color:#fff;padding:45px 48px;max-width:650px}.eyebrow{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#f3c66b}.hero h1{font:700 47px/1 "Cormorant Garamond";margin:10px 0 6px}.hero p{font-size:10px;line-height:1.6;margin:0}.layout{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(330px,.9fr);gap:18px;margin-top:18px}.panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:17px;box-shadow:0 8px 24px #0b203a08}.toolbar{display:flex;gap:10px;align-items:center;margin-bottom:13px}.search{flex:1;position:relative}.search span{position:absolute;left:13px;top:10px;font-size:14px}.search input,.select select{width:100%;height:39px;border:1px solid var(--line);border-radius:11px;outline:none;background:#fff;padding:0 12px 0 36px;font-size:10px}.select{width:190px}.select select{padding-left:12px}.search input:focus,.select select:focus,.field input:focus,.field textarea:focus,.field select:focus{border-color:#dca33e;box-shadow:0 0 0 4px #dca33e14}.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:12px}.product-card{border:1px solid var(--line);border-radius:15px;padding:10px;background:linear-gradient(180deg,#fff,#fffaf3);display:flex;flex-direction:column;gap:8px}.product-image{height:155px;width:100%;object-fit:contain;background:var(--cream);border-radius:10px;padding:7px}.product-name{font-size:11px;font-weight:800;min-height:28px}.product-original{font-size:8px;color:#8a919c;text-decoration:line-through}.product-price{font-size:14px;font-weight:900;color:#b9750d}.add-btn{border:0;border-radius:9px;background:var(--navy);color:#fff;padding:9px;font-size:9px;font-weight:800}.add-btn:hover{background:#b47716}.qty-badge{background:#f2c357;color:#2a2430;padding:3px 6px;border-radius:10px;margin-left:4px}.cart-card{position:sticky;top:86px;align-self:start}.cart-head{display:flex;justify-content:space-between;align-items:center}.cart-head h2,.details h2{font:700 28px "Cormorant Garamond";margin:0}.count{font-size:9px;font-weight:800;background:var(--cream);color:#9d6812;padding:7px 10px;border-radius:20px}.cart-actions{margin:12px 0}.action{width:100%;border:0;border-radius:22px;padding:11px 15px;background:linear-gradient(135deg,#f7ca5e,#d99b27);color:#19243b;font-size:10px;font-weight:900}.action.dark{background:var(--navy);color:#fff}.empty{padding:25px 15px;text-align:center;border:1px dashed var(--line);border-radius:12px;color:var(--muted);font-size:9px;background:#fffdf9}.cart-list{display:flex;flex-direction:column;gap:8px;max-height:370px;overflow:auto}.cart-item{border:1px solid #eadfcd;border-radius:11px;padding:10px;background:#fffaf2}.cart-top{display:flex;justify-content:space-between;gap:8px}.cart-name{font-size:10px;font-weight:800}.remove{border:0;background:none;color:var(--red);font-size:8px;font-weight:800}.qty-row{display:flex;align-items:center;justify-content:space-between;margin-top:8px}.qty-buttons{display:flex;align-items:center;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff}.qty-buttons button{border:0;background:#fff;width:27px;height:27px}.qty-buttons span{min-width:26px;text-align:center;font-size:9px;font-weight:800}.amount{font-size:10px;font-weight:900}.totals{border-top:1px solid var(--line);margin-top:12px;padding-top:12px;display:grid;gap:7px;font-size:9px}.total-row{display:flex;justify-content:space-between}.grand{font-size:18px;font-weight:900;color:#b9750d}.warning,.error{display:none;padding:9px 11px;border-radius:9px;background:#c8204810;color:#b51c40;border:1px solid #c8204820;font-size:9px;font-weight:800;margin-top:9px}.warning.show,.error.show{display:block}.details{margin-top:18px;display:none}.details.active{display:block}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}.field{display:flex;flex-direction:column;gap:5px}.field.full{grid-column:1/-1}.field label{font-size:9px;font-weight:800;color:#5d6673}.field input,.field textarea,.field select{border:1px solid var(--line);border-radius:10px;padding:10px;font-size:10px;outline:none;background:#fff}.field textarea{min-height:92px;resize:vertical}.details-actions{display:flex;justify-content:flex-end;margin-top:14px;gap:8px}.note{font-size:8px;line-height:1.6;color:var(--muted);margin-top:10px}.footer{margin-top:25px;min-height:210px;background:linear-gradient(180deg,#061a35b8,#061a35ee),url('assets/footer-family.png') center/cover;color:#fff;display:flex;align-items:flex-end}.footer-inner{width:100%;padding:24px 6vw;display:flex;justify-content:space-between;gap:30px;align-items:flex-end}.footer h3{font:700 29px "Cormorant Garamond";margin:0 0 5px}.footer p{font-size:8px;color:#d5deea;margin:4px 0}.toast{position:fixed;right:18px;bottom:18px;background:var(--navy);color:#fff;padding:12px 16px;border-radius:10px;font-size:9px;opacity:0;transform:translateY(10px);transition:.25s;z-index:100}.toast.show{opacity:1;transform:none}.success{display:none;text-align:center;padding:45px 20px}.success.show{display:block}.success .tick{font-size:40px;color:#d39a2a}.success h2{font:700 36px "Cormorant Garamond";margin:6px 0}.success p{font-size:10px;color:var(--muted)}
+@media(max-width:1000px){.layout{grid-template-columns:1fr}.cart-card{position:static}.product-grid{grid-template-columns:repeat(3,1fr)}.footer-inner{flex-direction:column;align-items:flex-start}}
+.mobile-cart-trigger,.cart-overlay{display:none}.cart-overlay.show{display:block}
+@media(max-width:900px){.topbar-track{gap:20px;padding-right:20px;animation-duration:18s}.nav{height:60px;padding:0 14px;gap:12px}.nav>a:not(.logo):not(.order-tag){display:none}.hero{height:235px}.hero-copy{padding:34px 22px}.hero h1{font-size:41px}.toolbar{flex-direction:column;align-items:stretch}.select{width:100%}.product-grid{grid-template-columns:repeat(2,1fr);gap:9px}.product-image{height:150px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.footer{min-height:260px}.footer-inner{padding:30px 22px}.mobile-cart-trigger{display:flex;position:fixed;right:18px;bottom:18px;width:62px;height:62px;border:none;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);box-shadow:0 16px 36px rgba(8,26,53,.22);z-index:70;align-items:center;justify-content:center;cursor:pointer}.cart-overlay{display:block;position:fixed;inset:0;background:rgba(7,16,31,.45);opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:55}.cart-overlay.show{display:block;opacity:1;pointer-events:auto}.cart-card{display:none;position:fixed;left:12px;right:12px;bottom:86px;top:auto;max-height:76vh;overflow:auto;z-index:60;padding:14px;border-radius:22px;background:#fff;box-shadow:0 22px 38px rgba(6,26,53,.18);transform:translateY(18px);opacity:0;pointer-events:none;transition:transform .25s ease,opacity .2s ease}.cart-card.mobile-open{display:flex;flex-direction:column;opacity:1;pointer-events:auto;transform:translateY(0)}.cart-head h2{font-size:28px}.cart-list{max-height:46vh}.layout{display:block}.main-wrap{padding-bottom:80px}} 
+@media(max-width:380px){.product-grid{grid-template-columns:repeat(2,1fr);gap:9px}.product-image{height:140px}}
+.contact-choice{position:fixed;left:18px;bottom:25px;z-index:80}
+.contact-choice summary{display:none}
+.contact-choice-options{display:flex!important;flex-direction:column;align-items:center;gap:10px;margin:0;padding:0;border:0;background:transparent;box-shadow:none}
+.contact-choice-options a{width:54px;height:54px;display:grid;place-items:center;padding:0;border-radius:50%;color:#fff;background:#25d366;box-shadow:0 8px 24px rgba(13,74,47,.24);transition:transform .2s ease}
+.contact-choice-options a:first-child{background:#061a35}
+.contact-choice-options a:hover{transform:translateY(-2px);color:#fff}
+.contact-choice-options svg{width:25px;height:25px}
+.contact-choice .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.category-heading{grid-column:1/-1;margin:12px 0 0;padding-bottom:7px;border-bottom:1px solid var(--line);font:700 22px "Cormorant Garamond";color:var(--navy)}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="topbar-track"><span>Diwali Sale is Live</span><span>90% Offer</span><span>Delivery Across South India</span><span>Exclusive Festive Offers</span><span>Eco Friendly Options</span><span>☏ 9940051105</span><span>✉ shrisenthuracrackers@gmail.com</span><span>Diwali Sale is Live</span><span>90% Offer</span><span>Exclusive Festive Offers</span><span>Eco Friendly Options</span><span>☏ 9940051105</span><span>✉ shrisenthuracrackers@gmail.com</span></div></div>
+<header class="nav"><a class="logo" href="index.html"><img src="assets/ssLogo.png" alt="Shri Senthura Crackers logo" style="width:100%;height:100%;object-fit:contain;"></a><a href="index.html">Home</a><a href="index.html#shop">Shop</a><a href="index.html.safety">Safety</a><span class="spacer"></span><span class="order-tag">Client Order</span></header>
+<details class="contact-choice" open>
+  <summary><img src="data:image/png;base64,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" alt="whatsapp--v1"></summary>
+  <div class="contact-choice-options">
+    <a href="https://wa.me/919940051105" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Shri Senthura Crackers" title="WhatsApp Shri Senthura Crackers"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.5a8 8 0 0 1-11.9 7L4 20l1.5-3.7A8 8 0 1 1 20 11.5Z"/><path d="M8.5 8.2c.2-.5.5-.6.9-.6h.6l1.1 2.3-.9 1c.6 1.2 1.5 2.1 2.7 2.7l1-.9 2.3 1.1v.6c0 .4-.1.7-.6.9-1 .4-2.1.3-3.2-.3a10 10 0 0 1-4-4c-.6-1.1-.7-2.2.1-2.8Z"/></svg><span class="sr-only">WhatsApp us</span></a>
+  </div>
+</details>
+<main class="wrap">
+<section class="hero"><div class="hero-copy"><div class="eyebrow">Direct ordering · no account required</div><h1>Choose. Add. Order.</h1><p>Browse the full collection, add your favourites to the order list, enter delivery details and submit your request.</p></div></section>
+<div class="layout" id="orderLayout">
+<section class="panel"><div class="toolbar"><div class="search"><span>⌕</span><input id="searchInput" placeholder="Search products..."></div><div class="select"><select id="categoryFilter"><option value="">All Categories</option></select></div></div><div id="productGrid" class="product-grid"></div></section>
+<aside class="panel cart-card"><div class="cart-head"><h2>Your Order</h2><span class="count" id="itemCount">0 items</span></div><div class="cart-actions"><button class="action" id="proceedBtn">Proceed to Details</button></div><div class="warning" id="cartWarning"></div><div id="cartEmpty" class="empty">Your order list is empty.<br>Add products to continue.</div><div id="cartList" class="cart-list" style="display:none"></div><div class="totals"><div class="total-row"><span>Subtotal</span><strong id="subtotal">â‚¹0.00</strong></div><div class="total-row"><span>Delivery / Handling</span><strong id="delivery">â‚¹0.00</strong></div><div class="total-row grand"><span>Total</span><strong id="grandTotal">â‚¹0.00</strong></div></div></aside>
+</div>
+<section class="panel details" id="detailsPanel"><h2>Your Delivery Details</h2><div class="error" id="orderError"></div><div class="form-grid"><div class="field full"><label>Customer Name</label><input id="customerName" placeholder="Enter your name"></div><div class="field"><label>Contact Number</label><input id="customerPhone" placeholder="e.g. +91XXXXXXXXXX" inputmode="tel"></div><div class="field"><label>State</label><select id="customerState"><option>Tamil Nadu</option><option>Kerala</option><option>Karnataka</option><option>Andhra Pradesh</option><option>Telangana</option><option>Puducherry</option><option>Other</option></select></div><div class="field full"><label>Address</label><textarea id="customerAddress" placeholder="Enter your full delivery address"></textarea></div><div class="field"><label>District</label><select id="customerDistrict"><option value="">Select District</option></select></div><div class="field"><label>Preferred Contact</label><select id="contactMode"><option>Phone</option><option>WhatsApp</option></select></div></div><div class="details-actions"><button class="action dark" id="confirmOrderBtn">Generate Order Summary</button></div><div class="note">Minimum order value:3,500.00. This standalone demo stores the order request in the browser and generates a confirmation view; connect it to your Supabase/backend workflow for production submission.</div></section>
+<section class="panel success" id="success"><div class="tick"></div><h2>Order Summary Ready</h2><p id="successText"></p><button class="action dark" onclick="window.print()" style="max-width:260px">Print / Save Summary</button><a class="action" href="index.html" style="display:inline-block;margin-top:8px;max-width:260px;text-decoration:none">Back to Storefront</a></section>
+</main>
+<footer class="footer"><div class="footer-inner"><div><h3>Celebrate Every Moment</h3><p>Festive ordering designed around simple discovery and responsible celebration.</p></div><div><p>Â© 2026 Festive Fireworks Demo Store</p><p>Follow manufacturer instructions and applicable local regulations.</p></div></div></footer><div class="cart-overlay" id="cartOverlay" aria-hidden="true"></div>
+<button class="mobile-cart-trigger" id="mobileCartTrigger" type="button" aria-label="Open your order" aria-expanded="false">
+  <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="19" r="1.5"></circle><circle cx="18" cy="19" r="1.5"></circle><path d="M3 4h2l2.4 9.5a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.8L19 7H7"></path></svg>
+  <span class="mobile-cart-badge" id="mobileCartBadge">0</span>
+</button><div class="toast" id="toast"></div>
+<script>
+const config = window.SUPABASE_CONFIG || globalThis.SUPABASE_CONFIG;
+const sb = config && config.url && config.anonKey ? window.supabase.createClient(config.url, config.anonKey, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: false, storageKey: 'sv-order-flow-auth-token' } }) : null;
+const state = { products: [], categories: [], cart: new Map(), deliveryFee: 0, districts: { 'Tamil Nadu': ['Ariyalur', 'Chengalpattu', 'Chennai', 'Coimbatore', 'Cuddalore', 'Dharmapuri', 'Dindigul', 'Erode', 'Kallakurichi', 'Kancheepuram', 'Karur', 'Krishnagiri', 'Madurai', 'Mayiladuthurai', 'Nagapattinam', 'Namakkal', 'Nilgiris', 'Perambalur', 'Pudukkottai', 'Ramanathapuram', 'Ranipet', 'Salem', 'Sivaganga', 'Tenkasi', 'Thanjavur', 'Theni', 'Thoothukudi', 'Tiruchirappalli', 'Tirunelveli', 'Tirupathur', 'Tiruppur', 'Tiruvallur', 'Tiruvannamalai', 'Tiruvarur', 'Vellore', 'Viluppuram', 'Virudhunagar'], 'Kerala': ['Thiruvananthapuram', 'Kochi', 'Kozhikode', 'Thrissur'], 'Karnataka': ['Bengaluru', 'Mysuru', 'Hubballi', 'Mangaluru'], 'Andhra Pradesh': ['Visakhapatnam', 'Vijayawada', 'Guntur', 'Rajahmundry'], 'Telangana': ['Hyderabad', 'Warangal', 'Nizamabad', 'Secunderabad'], 'Puducherry': ['Puducherry', 'Karaikal', 'Mahe', 'Yanam'], 'Other': ['Outside Tamil Nadu'] } };
+const $ = (id) => document.getElementById(id);
+function money(value) { return '₹' + Number(value || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+function escapeHtml(value) { return String(value ?? '').replace(/[&<>\"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '\"': '&quot;', "'": '&#039;' }[char])); }
+function toast(message) { const toastNode = $('toast'); if (!toastNode) return; toastNode.textContent = message; toastNode.classList.add('show'); clearTimeout(window.__orderToastTimer); window.__orderToastTimer = setTimeout(() => toastNode.classList.remove('show'), 2200); }
+function showError(message) { const el = $('orderError'); if (!el) return; el.textContent = message; el.classList.add('show'); }
+function hideError() { const el = $('orderError'); if (!el) return; el.textContent = ''; el.classList.remove('show'); }
+function totals() { let subtotal = 0; state.cart.forEach((item) => { subtotal += Number(item.product.selling_price || item.product.price || 0) * Number(item.qty || 0); }); return { subtotal, deliveryFee: state.deliveryFee, total: subtotal + state.deliveryFee }; }
+function orderedCategories() { return state.categories.map((category, index) => ({ category, index })).sort((a, b) => Number(a.category.display_order ?? 999) - Number(b.category.display_order ?? 999) || a.index - b.index).map(({ category }) => category); }
+function renderFilter() { const categoryFilter = $('categoryFilter'); if (!categoryFilter) return; categoryFilter.innerHTML = '<option value="">All Categories</option>' + orderedCategories().map((category) => `<option value="${escapeHtml(category.id)}">${escapeHtml(category.name)}</option>`).join(''); }
+function applyRouteSelection() {
+  const params = new URLSearchParams(window.location.search);
+  const selectedCategory = params.get('category');
+  const selectedProduct = params.get('product');
+  const categoryFilter = $('categoryFilter');
+  const searchInput = $('searchInput');
+
+  if (categoryFilter && selectedCategory) {
+    const matchingCategory = state.categories.find((category) => {
+      const target = decodeURIComponent(selectedCategory).trim();
+      return String(category.id) === String(target) || category.name.toLowerCase() === target.toLowerCase();
+    });
+    if (matchingCategory) categoryFilter.value = String(matchingCategory.id);
+  }
+
+  if (searchInput && selectedProduct) {
+    searchInput.value = decodeURIComponent(selectedProduct);
+  }
+}
+async function loadProducts() { if (!sb) { const productGrid = $('productGrid'); if (productGrid) productGrid.innerHTML = '<div class="empty" style="grid-column:1/-1">Products are unavailable right now.</div>'; return; } try { const [{ data: cats, error: catErr }, { data: prods, error: prodErr }] = await Promise.all([ sb.from('categories').select('id,name,display_order,created_at').order('display_order', { ascending: true }).order('created_at', { ascending: true }), sb.from('products').select('id,name,category_id,original_price,selling_price,image_url').eq('is_active', true).order('created_at', { ascending: true }) ]); if (catErr) throw catErr; if (prodErr) throw prodErr; state.categories = cats || []; state.products = (prods || []).map((product) => ({ ...product, selling_price: Number(product.selling_price || product.price || 0), original_price: Number(product.original_price || product.selling_price || 0) })); renderFilter(); applyRouteSelection(); renderProducts(); renderCart(); } catch (error) { console.error('Product loading failed:', error); const productGrid = $('productGrid'); if (productGrid) productGrid.innerHTML = '<div class="empty" style="grid-column:1/-1">Unable to load products.</div>'; } }
+function renderProducts() {
+  const q = ($('searchInput')?.value || '').toLowerCase().trim();
+  const selectedCategory = $('categoryFilter')?.value || '';
+  const list = state.products.filter((product) => {
+    const matchesSearch = !q || product.name.toLowerCase().includes(q);
+    const matchesCategory = !selectedCategory || String(product.category_id) === String(selectedCategory);
+    return matchesSearch && matchesCategory;
+  });
+  const productGrid = $('productGrid');
+  if (!productGrid) return;
+  if (!list.length) {
+    productGrid.innerHTML = '<div class="empty" style="grid-column:1/-1">No products found.</div>';
+    return;
+  }
+
+  const categoriesById = new Map(state.categories.map((category) => [String(category.id), category]));
+  const productsByCategory = new Map();
+  list.forEach((product) => {
+    const categoryId = String(product.category_id || '');
+    const groupKey = categoriesById.has(categoryId) ? categoryId : '';
+    if (!productsByCategory.has(groupKey)) productsByCategory.set(groupKey, []);
+    productsByCategory.get(groupKey).push(product);
+  });
+
+  const renderProduct = (product) => {
+    const qty = state.cart.get(product.id)?.qty || 0;
+    const image = product.image_url || 'assets/ssLogo.png';
+    return `<article class="product-card"><img class="product-image" src="${escapeHtml(image)}" alt="${escapeHtml(product.name)}" width="320" height="145" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='assets/ssLogo.png'"><div class="product-name">${escapeHtml(product.name)}</div><div class="product-original">${money(product.original_price)}</div><div class="product-price">${money(product.selling_price)}</div><button class="add-btn" type="button" onclick="addToCart('${product.id}')">${qty ? 'Add More · ' + qty : 'Add to Order'}</button></article>`;
+  };
+  const sortProductsByPrice = (products) => [...products].sort((a, b) => a.selling_price - b.selling_price);
+  const sections = orderedCategories()
+    .filter((category) => productsByCategory.has(String(category.id)))
+    .map((category) => `<h3 class="category-heading">${escapeHtml(category.name)}</h3>${sortProductsByPrice(productsByCategory.get(String(category.id))).map(renderProduct).join('')}`);
+  const uncategorized = productsByCategory.get('');
+  if (uncategorized?.length) {
+    sections.push(`<h3 class="category-heading">Uncategorized</h3>${sortProductsByPrice(uncategorized).map(renderProduct).join('')}`);
+  }
+  productGrid.innerHTML = sections.join('');
+}
+function addToCart(productId) { const product = state.products.find((item) => item.id === productId); if (!product) return; const existing = state.cart.get(productId) || { product, qty: 0 }; existing.qty += 1; state.cart.set(productId, existing); renderProducts(); renderCart(); }
+function changeQty(productId, delta) { const item = state.cart.get(productId); if (!item) return; item.qty += delta; if (item.qty <= 0) state.cart.delete(productId); renderProducts(); renderCart(); }
+function removeItem(productId) { state.cart.delete(productId); renderProducts(); renderCart(); }
+function renderCart() { const entries = [...state.cart.values()]; const itemCount = entries.reduce((sum, item) => sum + Number(item.qty || 0), 0); const subtotal = entries.reduce((sum, item) => sum + Number(item.product.selling_price || item.product.price || 0) * Number(item.qty || 0), 0); const total = subtotal + state.deliveryFee; const itemCountEl = $('itemCount'); const subtotalEl = $('subtotal'); const deliveryEl = $('delivery'); const grandTotalEl = $('grandTotal'); const cartEmpty = $('cartEmpty'); const cartList = $('cartList'); const mobileCartBadge = $('mobileCartBadge'); if (itemCountEl) itemCountEl.textContent = itemCount + ' item' + (itemCount === 1 ? '' : 's'); if (mobileCartBadge) mobileCartBadge.textContent = String(itemCount); if (subtotalEl) subtotalEl.textContent = money(subtotal); if (deliveryEl) deliveryEl.textContent = money(state.deliveryFee); if (grandTotalEl) grandTotalEl.textContent = money(total); if (cartEmpty) cartEmpty.style.display = entries.length ? 'none' : 'block'; if (cartList) { cartList.style.display = entries.length ? 'flex' : 'none'; cartList.innerHTML = entries.map(({ product, qty }) => `<div class="cart-item"><div class="cart-top"><span class="cart-name">${escapeHtml(product.name)}</span><button class="remove" type="button" onclick="removeItem('${product.id}')">Remove</button></div><div class="qty-row"><div class="qty-buttons"><button type="button" onclick="changeQty('${product.id}', -1)">−</button><span>${qty}</span><button type="button" onclick="changeQty('${product.id}', 1)">+</button></div><span class="amount">${money((Number(product.selling_price || product.price || 0)) * qty)}</span></div></div>`).join(''); } if (entries.length && total < 3500) { const warning = $('cartWarning'); if (warning) { warning.textContent = 'Minimum order value is ₹3,500.00.'; warning.classList.add('show'); } } else { const warning = $('cartWarning'); if (warning) warning.classList.remove('show'); } }
+function buildOrderData() {
+  const entries = [...state.cart.values()];
+  const items = entries.map(({ product, qty }) => {
+    const mrp = Number(product.original_price || product.selling_price || product.price || 0);
+    const rate = Number(product.selling_price || product.price || 0);
+    return {
+      name: product.name,
+      qty,
+      quantity: qty,
+      mrp,
+      rate,
+      discount: Math.max(0, mrp - rate) * qty,
+      amount: rate * qty
+    };
+  });
+  const mrpTotal = items.reduce((sum, item) => sum + item.mrp * item.qty, 0);
+  const subtotal = items.reduce((sum, item) => sum + item.amount, 0);
+  const discountTotal = Math.max(0, mrpTotal - subtotal);
+  return {
+    customerName: ($('customerName').value || '').trim(),
+    phone: ($('customerPhone').value || '').trim(),
+    address: ($('customerAddress').value || '').trim(),
+    state: ($('customerState').value || '').trim(),
+    district: ($('customerDistrict').value || '').trim(),
+    invoiceNo: '',
+    invoiceDate: new Date(),
+    mrpTotal,
+    subtotal,
+    discountTotal,
+    deliveryFee: state.deliveryFee,
+    total: subtotal + state.deliveryFee,
+    totalQuantity: items.reduce((sum, item) => sum + item.qty, 0),
+    items
+  };
+}
+function buildOrderText(order) {
+  const lines = [
+    'Please find the order invoice PDF attached for confirmation.',
+    '',
+    'SHRI SENTHURA CRACKERS',
+    'Address: 576, Bharathiyar Road, Murugu Thottam, Thalatheru, Karaikal – 609609 (Near Agriculture Office)',
+    'Phone: 99400 51105',
+    '',
+    'Customer Details',
+    `Name: ${order.customerName}`,
+    `Phone: ${order.phone}`,
+    `Address: ${order.address}`,
+    `State: ${order.state}`,
+    `District: ${order.district}`,
+    '',
+    'Ordered Products:',
+    ...order.items.map((item) => `${item.name} x ${item.qty} = ${money(item.amount)}`),
+    '',
+    `Total MRP: ${money(order.mrpTotal)}`,
+    `Discount applied (90% offer): ${money(order.discountTotal)}`,
+    `Discounted total: ${money(order.subtotal)}`,
+    `Delivery: ${money(order.deliveryFee)}`,
+    `Total: ${money(order.total)}`
+  ];
+  return lines.join('\n');
+}
+function numberToWordsIndian(value) {
+  let number = Math.round(Number(value || 0));
+  if (!number) return 'Zero';
+  const ones = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+  const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+  const underHundred = (n) => n < 20 ? ones[n] : tens[Math.floor(n / 10)] + (n % 10 ? ` ${ones[n % 10]}` : '');
+  const underThousand = (n) => n < 100 ? underHundred(n) : `${ones[Math.floor(n / 100)]} Hundred${n % 100 ? ` ${underHundred(n % 100)}` : ''}`;
+  const groups = [[10000000, 'Crore'], [100000, 'Lakh'], [1000, 'Thousand']];
+  const words = [];
+  groups.forEach(([size, label]) => {
+    if (number >= size) {
+      const count = Math.floor(number / size);
+      words.push(`${underThousand(count)} ${label}`);
+      number %= size;
+    }
+  });
+  if (number) words.push(underThousand(number));
+  return words.join(' ');
+}
+async function loadLogoDataUrl() { const candidates = [ new URL('../assets/ssLogo.png', window.location.href).toString(), new URL('assets/ssLogo.png', window.location.href).toString(), `${window.location.origin}/assets/ssLogo.png`, `${window.location.origin}/billing/../assets/ssLogo.png` ]; for (const imageUrl of candidates) { try { const response = await fetch(imageUrl); if (!response.ok) continue; const blob = await response.blob(); const dataUrl = await new Promise((resolve, reject) => { const reader = new FileReader(); reader.onloadend = () => resolve(reader.result); reader.onerror = reject; reader.readAsDataURL(blob); }); return dataUrl; } catch (error) { continue; } } return null; }
+async function generatePdf(order) {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit: 'mm', format: 'a4', compress: true });
+  const logoDataUrl = await loadLogoDataUrl();
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
+  const margin = 12;
+  const contentWidth = pageWidth - margin * 2;
+  const columns = [
+    { label: 'S.No', width: 9, align: 'center' },
+    { label: 'PRODUCT NAME', width: 60, align: 'left' },
+    { label: 'QUANTITY', width: 16, align: 'center' },
+    { label: 'MRP', width: 22, align: 'right' },
+    { label: 'RATE', width: 22, align: 'right' },
+    { label: 'PER', width: 13, align: 'center' },
+    { label: 'DISCOUNT', width: 22, align: 'right' },
+    { label: 'AMOUNT', width: 22, align: 'right' }
+  ];
+  const border = [34, 34, 34];
+  const drawPageFrame = (pageNumber, totalPages) => {
+    doc.setDrawColor(6, 26, 53);
+    doc.setLineWidth(0.35);
+    doc.rect(8, 8, pageWidth - 16, pageHeight - 16);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(90, 90, 90);
+    doc.text(`Page ${pageNumber} of ${totalPages}`, pageWidth / 2, pageHeight - 4.5, { align: 'center' });
+  };
+  const drawTableHeader = (startY) => {
+    const height = 8;
+    let x = margin;
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(7.5);
+    doc.setTextColor(17, 17, 17);
+    columns.forEach((column) => {
+      doc.setFillColor(184, 232, 234);
+      doc.setDrawColor(...border);
+      doc.rect(x, startY, column.width, height, 'FD');
+      const textX = column.align === 'left' ? x + 1.5 : column.align === 'right' ? x + column.width - 1.5 : x + column.width / 2;
+      doc.text(column.label, textX, startY + 5.2, { align: column.align === 'left' || column.align === 'right' ? column.align : 'center' });
+      x += column.width;
+    });
+    return startY + height;
+  };
+  const drawContinuationHeader = () => {
+    drawPageFrame(doc.internal.getNumberOfPages(), doc.internal.getNumberOfPages());
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(13);
+    doc.setTextColor(17, 17, 17);
+    doc.text('SHRI SENTHURA CRACKERS', pageWidth / 2, 17, { align: 'center' });
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`TAX INVOICE - ${order.invoiceNo} (Continued)`, pageWidth / 2, 22, { align: 'center' });
+    return drawTableHeader(26);
+  };
+
+  const invoiceDate = order.invoiceDate instanceof Date ? order.invoiceDate : new Date(order.invoiceDate);
+  const formattedDate = invoiceDate.toLocaleDateString('en-IN');
+  const billNo = order.invoiceNo || `WEB-${Date.now()}`;
+  order.invoiceNo = billNo;
+  doc.setTextColor(17, 17, 17);
+  if (logoDataUrl) doc.addImage(logoDataUrl, 'PNG', margin + 1, 13, 18, 18);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(18);
+  doc.text('SHRI SENTHURA CRACKERS', pageWidth / 2, 16, { align: 'center' });
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'bolditalic');
+  doc.text('(Wholesale & Retail Fireworks Dealers)', pageWidth / 2, 22, { align: 'center' });
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(8.5);
+  doc.text('576, Bharathiyar Road, Murugu Thottam, Thalatheru, Karaikal - 609609', pageWidth / 2, 28, { align: 'center' });
+  doc.text('(Near Agriculture Office)  |  Phone: 99400 51105', pageWidth / 2, 33, { align: 'center' });
+  doc.text('Website: www.shrisenthuracrackers.com', pageWidth / 2, 38, { align: 'center' });
+  doc.setFillColor(11, 127, 120);
+  doc.rect(margin, 42, contentWidth, 1.2, 'F');
+
+  const customerY = 47;
+  const customerHeight = 31;
+  const firstCol = 68;
+  const secondCol = 68;
+  const invoiceCol = contentWidth - firstCol - secondCol;
+  const drawCell = (x, width) => {
+    doc.setDrawColor(...border);
+    doc.setLineWidth(0.25);
+    doc.rect(x, customerY, width, customerHeight);
+  };
+  drawCell(margin, firstCol);
+  drawCell(margin + firstCol, secondCol);
+  drawCell(margin + firstCol + secondCol, invoiceCol);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(8.5);
+  doc.text('To:', margin + 2, customerY + 5);
+  doc.text(String(order.customerName || 'Customer').slice(0, 48), margin + 2, customerY + 10);
+  doc.setFont('helvetica', 'normal');
+  doc.text(doc.splitTextToSize(String(order.phone || ''), firstCol - 4).slice(0, 2), margin + 2, customerY + 15);
+  const addressLines = doc.splitTextToSize(String(order.address || ''), firstCol - 4).slice(0, 2);
+  doc.text(addressLines, margin + 2, customerY + 20);
+
+  const deliveryX = margin + firstCol;
+  doc.setFont('helvetica', 'bold');
+  doc.text('Delivery To Details', deliveryX + 2, customerY + 5);
+  doc.text(String(order.customerName || 'Customer').slice(0, 48), deliveryX + 2, customerY + 10);
+  doc.setFont('helvetica', 'normal');
+  const locationLines = doc.splitTextToSize(`${order.district}, ${order.state}`, secondCol - 4).slice(0, 2);
+  doc.text(locationLines, deliveryX + 2, customerY + 15);
+
+  const invoiceX = margin + firstCol + secondCol;
+  doc.setFillColor(243, 166, 166);
+  doc.rect(invoiceX, customerY, invoiceCol, 8, 'F');
+  doc.setFont('helvetica', 'bold');
+  doc.text('TAX INVOICE', invoiceX + invoiceCol / 2, customerY + 5.3, { align: 'center' });
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(7.5);
+  doc.text(`Bill No. : ${billNo}`, invoiceX + 2, customerY + 15);
+  doc.text(`Date : ${formattedDate}`, invoiceX + 2, customerY + 22);
+
+  doc.setFillColor(255, 247, 237);
+  doc.setDrawColor(234, 159, 59);
+  doc.roundedRect(margin, 81, contentWidth, 8, 1.5, 1.5, 'FD');
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(10);
+  doc.setTextColor(154, 59, 5);
+  doc.text('90% DISCOUNT APPLIED', pageWidth / 2, 86.3, { align: 'center' });
+  doc.setTextColor(17, 17, 17);
+  let y = drawTableHeader(91);
+  const bottomLimit = pageHeight - 17;
+  doc.setFontSize(7.7);
+
+  order.items.forEach((item, index) => {
+    const nameLines = doc.splitTextToSize(String(item.name || ''), columns[1].width - 3);
+    const rowHeight = Math.max(7, nameLines.length * 4 + 2);
+    if (y + rowHeight > bottomLimit) {
+      doc.addPage();
+      y = drawContinuationHeader();
+      doc.setFontSize(7.7);
+    }
+    const values = [
+      String(index + 1),
+      nameLines,
+      String(item.qty),
+      money(item.mrp).replace('₹', ''),
+      money(item.rate).replace('₹', ''),
+      'Case',
+      money(item.discount).replace('₹', ''),
+      money(item.amount).replace('₹', '')
+    ];
+    let x = margin;
+    doc.setFont('helvetica', 'normal');
+    columns.forEach((column, columnIndex) => {
+      doc.setDrawColor(...border);
+      doc.rect(x, y, column.width, rowHeight);
+      const value = values[columnIndex];
+      const align = columnIndex === 1 ? 'left' : column.align;
+      const textX = align === 'left' ? x + 1.5 : align === 'right' ? x + column.width - 1.5 : x + column.width / 2;
+      const textY = y + (rowHeight - (Array.isArray(value) ? value.length * 4 : 4)) / 2 + 3;
+      doc.text(value, textX, textY, { align, lineHeightFactor: 1.15 });
+      x += column.width;
+    });
+    y += rowHeight;
+  });
+
+  const summaryHeight = 73;
+  if (y + summaryHeight > bottomLimit) {
+    doc.addPage();
+    y = drawContinuationHeader();
+  }
+  y += 4;
+  const summaryTop = y;
+  const summaryX = margin + contentWidth * 0.54;
+  const summaryWidth = contentWidth * 0.46;
+  const summaryRows = [
+    ['Total MRP :', money(order.mrpTotal)],
+    ['Less : Discount (90% offer)', money(order.discountTotal)],
+    ['Discounted Total :', money(order.subtotal)],
+    ['Delivery / Handling :', money(order.deliveryFee)],
+    ['Grand Total :', money(order.total)]
+  ];
+  const summaryRowHeight = 7;
+  const summaryBoxHeight = summaryRows.length * summaryRowHeight + 5;
+  doc.setDrawColor(...border);
+  doc.rect(summaryX, summaryTop, summaryWidth, summaryBoxHeight);
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(8.5);
+  summaryRows.forEach(([label, amount], index) => {
+    const rowY = summaryTop + 6 + index * summaryRowHeight;
+    if (index === summaryRows.length - 1) {
+      doc.setDrawColor(...border);
+      doc.line(summaryX + 2, rowY - 3.5, summaryX + summaryWidth - 2, rowY - 3.5);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(10);
+    }
+    doc.text(label, summaryX + 3, rowY);
+    doc.text(amount.replace('₹', ''), summaryX + summaryWidth - 3, rowY, { align: 'right' });
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8.5);
+  });
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(8.5);
+  doc.text(`Total : ${order.totalQuantity} Case`, margin + 2, summaryTop + 6);
+  doc.text('Subject to Jurisdiction', margin + 2, summaryTop + 12);
+  doc.text('Rupees :', margin + 2, summaryTop + 23);
+  doc.setFont('helvetica', 'normal');
+  const amountWords = doc.splitTextToSize(`${numberToWordsIndian(order.total)} Rupees Only.`, contentWidth * 0.5 - 4);
+  doc.text(amountWords, margin + 2, summaryTop + 29);
+  doc.setFont('helvetica', 'bold');
+  doc.text('For Shri Senthura Crackers', margin + contentWidth - 2, summaryTop + summaryBoxHeight + 17, { align: 'right' });
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(8);
+  const signatureY = summaryTop + summaryBoxHeight + 31;
+  doc.text('Prepared by', margin + 2, signatureY, { align: 'left' });
+  doc.text('Checked by', margin + contentWidth / 2, signatureY, { align: 'center' });
+  doc.text('Authorized Signatory', margin + contentWidth - 2, signatureY, { align: 'right' });
+
+  const totalPages = doc.internal.getNumberOfPages();
+  for (let page = 1; page <= totalPages; page += 1) {
+    doc.setPage(page);
+    drawPageFrame(page, totalPages);
+  }
+  return doc;
+}
+async function confirmOrder() { if (!state.cart.size) { showError('Please add at least one product before placing the order.'); return; } const name = ($('customerName').value || '').trim(); const phone = ($('customerPhone').value || '').trim(); const address = ($('customerAddress').value || '').trim(); const district = ($('customerDistrict').value || '').trim(); const stateName = ($('customerState').value || '').trim(); if (!name || !phone || !address || !stateName || !district) { showError('Please complete your name, phone number, address, state and district.'); return; } const order = buildOrderData(); if (order.total < 3500) { showError('Minimum order value is ₹3500.00. Please add more items.'); return; } if (!sb) { showError('Database connection is not ready. Please refresh and try again.'); return; } try { order.invoiceNo = `WEB-${Date.now()}`; const pdf = await generatePdf(order); pdf.save(`ShriSenthura-Order-${order.invoiceNo}.pdf`); const requestNo = order.invoiceNo; const { error: requestError } = await sb.from('website_order_requests').insert({ request_no: requestNo, customer_name: order.customerName, customer_phone: order.phone, customer_address: order.address, customer_state: order.state, customer_district: order.district, subtotal: order.subtotal, delivery_fee: order.deliveryFee, total: order.total, total_items: order.items.length, total_quantity: order.items.reduce((sum, item) => sum + Number(item.qty || 0), 0), items: JSON.stringify(order.items), status: 'pending' }); if (requestError) throw requestError; const whatsappNumber = (config.adminWhatsapp || '+919940051105').replace(/\D/g, ''); const text = encodeURIComponent(buildOrderText(order)); window.open(`https://wa.me/${whatsappNumber}?text=${text}`, '_blank', 'noopener,noreferrer'); toast('Order request submitted. PDF downloaded and WhatsApp message opened.'); setTimeout(() => { state.cart.clear(); renderProducts(); renderCart(); $('detailsPanel').classList.remove('active'); $('customerName').value = ''; $('customerPhone').value = ''; $('customerAddress').value = ''; $('customerState').value = 'Tamil Nadu'; updateDistricts(); hideError(); }, 600); } catch (error) { console.error('Order submission failed:', error); showError('The order was not submitted. Please try again.'); } }
+function updateDistricts() { const selectedState = $('customerState')?.value || 'Tamil Nadu'; const districtList = state.districts[selectedState] || []; const districtNode = $('customerDistrict'); if (!districtNode) return; districtNode.innerHTML = '<option value="">Select District</option>' + districtList.map((district) => `<option value="${district}">${district}</option>`).join(''); }
+function closeMobileCart() { const cartCard = document.querySelector('.cart-card'); const overlay = $('cartOverlay'); const trigger = $('mobileCartTrigger'); if (cartCard) cartCard.classList.remove('mobile-open'); if (overlay) overlay.classList.remove('show'); if (trigger) trigger.setAttribute('aria-expanded', 'false'); }
+function openMobileCart() { if (window.innerWidth > 900) return; const cartCard = document.querySelector('.cart-card'); const overlay = $('cartOverlay'); const trigger = $('mobileCartTrigger'); if (cartCard) cartCard.classList.add('mobile-open'); if (overlay) overlay.classList.add('show'); if (trigger) trigger.setAttribute('aria-expanded', 'true'); }
+function bindEvents() { $('searchInput')?.addEventListener('input', renderProducts); $('categoryFilter')?.addEventListener('change', renderProducts); $('customerState')?.addEventListener('change', updateDistricts); $('mobileCartTrigger')?.addEventListener('click', () => { const cartCard = document.querySelector('.cart-card'); const isOpen = cartCard && cartCard.classList.contains('mobile-open'); if (isOpen) closeMobileCart(); else openMobileCart(); }); $('cartOverlay')?.addEventListener('click', closeMobileCart); window.addEventListener('resize', () => { if (window.innerWidth > 900) closeMobileCart(); }); $('proceedBtn')?.addEventListener('click', () => { if (!state.cart.size) { showError('Please add a product before continuing.'); return; } if (totals().total < 3500) { showError('Minimum order value is ₹3500.00. Please add more items.'); return; } hideError(); closeMobileCart(); $('detailsPanel').classList.add('active'); $('detailsPanel').scrollIntoView({ behavior: 'smooth', block: 'start' }); }); $('confirmOrderBtn')?.addEventListener('click', confirmOrder); }
+document.addEventListener('DOMContentLoaded', () => { bindEvents(); updateDistricts(); loadProducts(); renderProducts(); renderCart(); });
+</script></body></html>

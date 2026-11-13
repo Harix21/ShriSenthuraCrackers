@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Backup & Restore | Shri Senthura Crackers</title>
+  <link rel="stylesheet" href="css/admin.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="js/common.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="js/backup.js" defer></script>
+</head>
+<body>
+  <div class="admin-shell">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand-wrap">
+          <img src="../assets/ssLogo.png" alt="Shri Senthura Crackers logo" class="brand-mark" />
+          <div>
+            <div class="brand-title">Shri Senthura Crackers</div>
+            <div class="brand-sub">Backup &amp; Restore</div>
+          </div>
+        </div>
+
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation">☰</button>
+
+        <nav class="nav-links">
+          <a class="nav-pill" href="billing.html">POS Billing</a>
+          <a class="nav-pill" href="dashboard.html">Dashboard</a>
+          <a class="nav-pill" href="products.html">Products</a>
+          <a class="nav-pill" href="customers.html">Customers</a>
+          <a class="nav-pill" href="website-orders.html">Website Orders</a>
+          <a class="nav-pill" href="feedback.html">Feedback</a>
+          <a class="nav-pill" href="history.html">Order History</a>
+          <a class="nav-pill" href="reports.html">Analytics</a>
+          <a class="nav-pill active" href="backup.html">Backup &amp; Restore</a>
+          <button class="nav-pill secondary" id="logoutBtn" type="button">Logout</button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page-container">
+      <div class="section-head">
+        <div>
+          <h1 class="section-title">Backup &amp; Restore</h1>
+          <div class="subtle">Safely export and restore business data from Supabase</div>
+        </div>
+      </div>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2 class="panel-title">Database Overview</h2>
+        </div>
+
+        <div class="summary-grid" id="overviewCards"></div>
+      </section>
+
+      <section class="grid-two" style="margin-top: 22px;">
+        <div class="panel">
+          <div class="panel-header">
+            <h2 class="panel-title">Backup</h2>
+          </div>
+
+          <div class="inline-actions" style="margin-bottom:16px;">
+            <button class="btn btn-primary" id="createBackupBtn" type="button">Create Full Backup</button>
+            <button class="btn btn-secondary" id="exportProductsBtn" type="button">Export Products</button>
+            <button class="btn btn-secondary" id="exportBillsBtn" type="button">Export Bills</button>
+          </div>
+
+          <div id="backupSummary" class="empty-state">No backup created yet.</div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h2 class="panel-title">Restore</h2>
+          </div>
+
+          <div class="field" style="margin-bottom:12px;">
+            <label>Select Backup File</label>
+           <!-- <input id="restoreFileInput" type="file" accept="application/json" /> -->
+          </div>
+
+          <div id="restoreInfo" class="empty-state">No backup selected.</div>
+
+          <div class="inline-actions" style="margin-top:16px;">
+            <button class="btn btn-secondary" id="validateBackupBtn" type="button">Validate Backup</button>
+            <button class="btn btn-primary" id="restoreBackupBtn" type="button">Restore Backup</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+<script>
+  const navToggle = document.querySelector('.nav-toggle');
+  const navLinks = document.querySelector('.nav-links');
+  if (navToggle && navLinks) {
+    navToggle.addEventListener('click', () => navLinks.classList.toggle('nav-open'));
+  }
+
+  if (window.frameElement || window.self !== window.top) {
+    document.body.setAttribute('data-embedded', 'true');
+    const topbar = document.querySelector('.topbar');
+    if (topbar) topbar.style.display = 'none';
+  }
+</script>
+</body>
+</html>

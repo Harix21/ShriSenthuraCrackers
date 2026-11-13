@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shri Senthura Crackers History</title>
+  <link rel="stylesheet" href="css/admin.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="js/common.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="js/history.js" defer></script>
+</head>
+<body>
+  <div class="admin-shell">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand-wrap">
+          <img src="../assets/ssLogo.png" alt="Shri Senthura Crackers logo" class="brand-mark" />
+          <div>
+            <div class="brand-title">Shri Senthura Crackers</div>
+            <div class="brand-sub">Order History</div>
+          </div>
+        </div>
+
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation">☰</button>
+
+        <nav class="nav-links">
+          <a class="nav-pill" href="billing.html">POS Billing</a>
+          <a class="nav-pill" href="dashboard.html">Dashboard</a>
+          <a class="nav-pill" href="products.html">Products</a>
+          <a class="nav-pill" href="customers.html">Customers</a>
+          <a class="nav-pill" href="website-orders.html">Website Orders</a>
+          <a class="nav-pill" href="feedback.html">Feedback</a>
+          <a class="nav-pill active" href="history.html">Order History</a>
+          <a class="nav-pill" href="reports.html">Analytics</a>
+          <a class="nav-pill" href="backup.html">Backup &amp; Restore</a>
+          <button class="nav-pill secondary" id="logoutBtn" type="button">Logout</button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page-container">
+      <div class="section-head">
+        <div>
+          <h1 class="section-title">Bill History</h1>
+          <div class="subtle">Search, filter, export, and review past orders</div>
+        </div>
+      </div>
+
+      <section class="filter-bar">
+        <div class="field">
+          <label>Bill No</label>
+          <input id="searchBillNo" type="text" placeholder="Search bill no" />
+        </div>
+        <div class="field">
+          <label>Customer</label>
+          <input id="searchCustomer" type="text" placeholder="Customer name" />
+        </div>
+        <div class="field">
+          <label>Phone</label>
+          <input id="searchPhone" type="text" placeholder="Mobile number" />
+        </div>
+        <div class="field">
+          <label>Product</label>
+          <input id="searchProduct" type="text" placeholder="Product name" />
+        </div>
+        <div class="field">
+          <label>Period</label>
+          <select id="periodFilter">
+            <option value="all">All Time</option>
+            <option value="today">Today</option>
+            <option value="week">This Week</option>
+            <option value="month">This Month</option>
+            <option value="year">This Year</option>
+            <option value="custom">Custom</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>From</label>
+          <input id="fromDate" type="date" />
+        </div>
+        <div class="field">
+          <label>To</label>
+          <input id="toDate" type="date" />
+        </div>
+        <div class="field">
+          <label>Payment</label>
+          <select id="paymentFilter">
+            <option value="">All Payments</option>
+            <option value="Cash">Cash</option>
+            <option value="UPI">UPI</option>
+            <option value="Card">Card</option>
+            <option value="Credit">Credit</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Min total</label>
+          <input id="minTotal" type="number" step="0.01" min="0" placeholder="0.00" />
+        </div>
+        <div class="field">
+          <label>Max total</label>
+          <input id="maxTotal" type="number" step="0.01" min="0" placeholder="5000" />
+        </div>
+        <div class="field">
+          <label>&nbsp;</label>
+          <button class="primary" id="applyFiltersBtn" type="button">Apply Filters</button>
+        </div>
+        <div class="field">
+          <label>&nbsp;</label>
+          <button class="secondary" id="resetFiltersBtn" type="button">Reset</button>
+        </div>
+      </section>
+
+      <div class="inline-actions" style="margin-bottom: 16px;">
+        <button class="btn btn-primary" id="exportJsonBtn" type="button">Export JSON</button>
+        <button class="btn btn-success" id="exportExcelBtn" type="button">Export Excel</button>
+        <label class="btn btn-secondary" for="importJsonInput" style="cursor:pointer; display:inline-flex; align-items:center; justify-content:center;">Import JSON</label>
+        <input id="importJsonInput" type="file" accept="application/json" style="display:none;" />
+      </div>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2 class="panel-title">Matching Bills</h2>
+          <span id="resultCount" class="subtle">0 results</span>
+        </div>
+        <div id="historyTableContainer" class="table-wrap"></div>
+      </section>
+    </main>
+  </div>
+<script>
+  const navToggle = document.querySelector('.nav-toggle');
+  const navLinks = document.querySelector('.nav-links');
+  if (navToggle && navLinks) {
+    navToggle.addEventListener('click', () => navLinks.classList.toggle('nav-open'));
+  }
+
+  if (window.frameElement || window.self !== window.top) {
+    document.body.setAttribute('data-embedded', 'true');
+    const topbar = document.querySelector('.topbar');
+    if (topbar) topbar.style.display = 'none';
+  }
+</script>
+</body>
+</html>

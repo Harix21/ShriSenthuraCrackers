@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shri Senthura Crackers Dashboard</title>
+  <link rel="stylesheet" href="css/admin.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="js/common.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/dashboard.js" defer></script>
+</head>
+<body>
+  <div class="admin-shell">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand-wrap">
+          <img src="../assets/ssLogo.png" alt="Shri Senthura Crackers logo" class="brand-mark" />
+          <div>
+            <div class="brand-title">Shri Senthura Crackers</div>
+            <div class="brand-sub">Admin Dashboard</div>
+          </div>
+        </div>
+
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation">☰</button>
+
+        <nav class="nav-links">
+          <a class="nav-pill" href="billing.html">POS Billing</a>
+          <a class="nav-pill active" href="dashboard.html">Dashboard</a>
+          <a class="nav-pill" href="products.html">Products</a>
+          <a class="nav-pill" href="customers.html">Customers</a>
+          <a class="nav-pill" href="website-orders.html">Website Orders</a>
+          <a class="nav-pill" href="feedback.html">Feedback</a>
+          <a class="nav-pill" href="history.html">Order History</a>
+          <a class="nav-pill" href="reports.html">Analytics</a>
+          <a class="nav-pill" href="backup.html">Backup &amp; Restore</a>
+          <button class="nav-pill secondary" id="logoutBtn" type="button">Logout</button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page-container">
+      <div class="section-head">
+        <div>
+          <h1 class="section-title">Overview</h1>
+          <div class="subtle">Live sales performance for Shri Senthura Crackers</div>
+        </div>
+        <div class="quick-badges">
+          <span class="badge-chip success">Live</span>
+          <span class="badge-chip">Today</span>
+          <span class="badge-chip">This Month</span>
+        </div>
+      </div>
+
+      <section class="dashboard-hero">
+        <div class="hero-copy">
+          <div class="eyebrow">Business Snapshot</div>
+          <h2>Retail performance at a glance</h2>
+        </div>
+        <div class="hero-metrics">
+          <div class="hero-metric">
+            <span>Today</span>
+            <strong id="heroTodayValue">₹0.00</strong>
+          </div>
+          <div class="hero-metric">
+            <span>Orders</span>
+            <strong id="heroOrdersValue">0</strong>
+          </div>
+          <div class="hero-metric">
+            <span>Best Sale</span>
+            <strong id="heroTopValue">₹0.00</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats-grid" id="statsGrid"></section>
+
+      <section class="grid-two">
+        <div class="panel">
+          <div class="panel-header">
+            <h2 class="panel-title">Profit Overview</h2>
+          </div>
+          <div id="profitSummaryText" class="summary-grid"></div>
+          <div class="profit-chart-wrap">
+            <canvas id="profitTrendChart"></canvas>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h2 class="panel-title">Profit Insight</h2>
+          </div>
+          <div id="profitInsightText" class="summary-grid"></div>
+        </div>
+      </section>
+
+      <section class="grid-two">
+        <div class="panel">
+          <div class="panel-header">
+            <h2 class="panel-title">Recent Bills</h2>
+            <a class="subtle" href="history.html">View all</a>
+          </div>
+          <div id="recentBillsContainer" class="table-wrap"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h2 class="panel-title">Payment Summary</h2>
+          </div>
+          <div id="paymentSummary"></div>
+        </div>
+      </section>
+
+      <section class="grid-two">
+        <div class="panel">
+          <div class="panel-header">
+            <h2 class="panel-title">Top Orders</h2>
+          </div>
+          <div id="topOrdersContainer" class="table-wrap"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h2 class="panel-title">Top Products</h2>
+          </div>
+          <div id="topProductsContainer"></div>
+        </div>
+      </section>
+
+      <section class="grid-two">
+        <div class="panel">
+          <div class="panel-header">
+            <h2 class="panel-title">Most Sold Categories</h2>
+          </div>
+          <div id="categorySummary"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h2 class="panel-title">Highlights</h2>
+          </div>
+          <div class="summary-grid" id="summaryGrid"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+<script>
+  const navToggle = document.querySelector('.nav-toggle');
+  const navLinks = document.querySelector('.nav-links');
+  if (navToggle && navLinks) {
+    navToggle.addEventListener('click', () => navLinks.classList.toggle('nav-open'));
+  }
+
+  if (window.frameElement || window.self !== window.top) {
+    document.body.setAttribute('data-embedded', 'true');
+    const topbar = document.querySelector('.topbar');
+    if (topbar) topbar.style.display = 'none';
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customers | Shri Senthura Crackers</title>
+  <link rel="stylesheet" href="css/admin.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/customers.js" defer></script>
+</head>
+<body>
+  <div class="admin-shell">
+    <header class="topbar"><div class="topbar-inner">
+      <div class="brand-wrap"><img src="../assets/ssLogo.png" alt="Shri Senthura Crackers logo" class="brand-mark" /><div><div class="brand-title">Shri Senthura Crackers</div><div class="brand-sub">Customers</div></div></div>
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation">☰</button>
+      <nav class="nav-links">
+        <a class="nav-pill" href="billing.html">POS Billing</a><a class="nav-pill" href="dashboard.html">Dashboard</a><a class="nav-pill" href="products.html">Products</a><a class="nav-pill active" href="customers.html">Customers</a><a class="nav-pill" href="website-orders.html">Website Orders</a><a class="nav-pill" href="feedback.html">Feedback</a><a class="nav-pill" href="history.html">Order History</a><a class="nav-pill" href="reports.html">Analytics</a><button class="nav-pill secondary" id="logoutBtn" type="button">Logout</button>
+      </nav>
+    </div></header>
+    <main class="page-container">
+      <div class="section-head"><div><h1 class="section-title">Customers</h1><div class="subtle">Customer details, previous purchases, and billing history</div></div><button class="btn btn-primary" id="newCustomerBtn" type="button">Add Customer</button></div>
+      <section class="filter-bar"><div class="field"><label>Search customers</label><input id="customerSearch" placeholder="Name or phone" /></div></section>
+      <section class="panel"><div class="panel-header"><h2 class="panel-title">Customer List</h2><span id="customerCount" class="subtle">0 customers</span></div><div id="customerTable" class="table-wrap"></div></section>
+    </main>
+  </div>
+  <div id="customerModal" class="sv-modal-backdrop"><div class="sv-modal-window"><div class="sv-modal-head"><h3 id="customerModalTitle">Add Customer</h3><button class="sv-modal-close" id="closeCustomerModal" type="button">×</button></div><form id="customerForm" class="sv-modal-body"><div class="sv-modal-grid"><div class="field"><label>Name</label><input id="customerName" required /></div><div class="field"><label>Phone</label><input id="customerPhone" inputmode="tel" /></div><div class="field" style="grid-column:1/-1"><label>Address</label><textarea id="customerAddress" rows="3"></textarea></div><div class="field" style="grid-column:1/-1"><label>Notes</label><textarea id="customerNotes" rows="2"></textarea></div></div><div class="sv-modal-actions"><button class="cancel" id="cancelCustomerBtn" type="button">Cancel</button><button class="save" type="submit">Save Customer</button></div></form><div id="customerOrders" class="sv-modal-body" style="border-top:1px solid var(--border);"></div></div></div>
+  <script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    navToggle?.addEventListener('click', () => navLinks?.classList.toggle('nav-open'));
+    if (window.frameElement || window.self !== window.top) {
+      document.body.setAttribute('data-embedded', 'true');
+      document.querySelector('.topbar')?.style.setProperty('display', 'none');
+    }
+  </script>
+</body>
+</html>

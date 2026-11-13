@@ -1,0 +1,720 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shri Senthura Crackers</title>
+<link rel="icon" href="assets/ssLogo.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="billing/supabase-config.js"></script>
+<style>
+:root{--navy:#061a35;--gold:#e4ae43;--gold2:#f7cd65;--cream:#fffaf1;--paper:#fffdf9;--ink:#13213a;--muted:#6e7580;--line:#eadfcd;--red:#c82048;--shadow:0 18px 55px #091c3718}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:"DM Sans",Arial,sans-serif}a{text-decoration:none;color:#553513}button,input,textarea,select{font:inherit}
+.top{height:34px;background:var(--navy);color:#fff;display:block;overflow:hidden;font-size:10px;white-space:nowrap}
+.top-track{height:100%;width:max-content;display:flex;align-items:center;animation:topScroll 22s linear infinite}
+.top-group{height:100%;display:flex;align-items:center;gap:34px;padding-right:34px;flex:0 0 auto}
+.top-track span{flex:0 0 auto}
+@keyframes topScroll{
+  from{transform:translateX(0)}
+  to{transform:translateX(-25%)}
+}
+.top:hover .top-track{animation-play-state:paused}
+.nav{height:68px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:27px;padding:0 clamp(15px,5vw,72px);position:sticky;top:0;z-index:50}.logo{width:48px;height:48px;display:grid;place-items:center;position:relative;color:#d52044;font-size:36px}.logo:after{content:"";position:absolute;width:25px;height:25px;border-radius:50%}.links{display:flex;gap:27px;flex:1;font-size:12px;font-weight:700}.links a{padding:25px 0;position:relative}.links a.active,.links a:hover{color:#b57a18}.links a.active:after{content:"";position:absolute;left:0;right:0;bottom:15px;height:2px;background:#dca33d}.search{height:38px;width:min(280px,28vw);border:1px solid #ddd4c7;border-radius:22px;display:flex;overflow:hidden}.search input{flex:1;min-width:0;border:0;outline:0;padding:0 14px;font-size:10px}.search button{width:48px;border:0;background:var(--gold);cursor:pointer}.help{font-size:16px}.hamb{display:none;border:0;background:none;font-size:24px}
+
+.hero{height:clamp(390px,45vw,610px);position:relative;overflow:hidden;background:#071a35}.hero>img{width:100%;height:100%;object-fit:cover}.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#020d1ed0 0%,#020d1e78 37%,#020d1e08 70%),linear-gradient(0deg,#0003,transparent 35%)}.hero-copy{position:absolute;z-index:2;left:clamp(22px,7vw,110px);left:220px;top:50%;transform:translateY(-50%);color:#fff;max-width:570px}.eyebrow{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:#f2c568}.hero h1{font:700 clamp(46px,5.2vw,78px)/.87 "Cormorant Garamond",serif;margin:15px 0}.hero h1 span{color:#f6c75d}.hero p{font-size:14px;line-height:1.65;max-width:480px}.cta{display:inline-block; margin-top:9px;background:var(--gold2);padding:13px 23px;border-radius:25px;font-size:11px;font-weight:800}.proof{display:flex;gap:20px;flex-wrap:wrap;margin-top:25px;font-size:9px}.proof span{display:inline-grid;place-items:center;width:25px;height:25px;border:1px solid #e8bf59;border-radius:50%;margin-right:6px;color:#f1c05b}.dots{position:absolute;z-index:3;bottom:13px;left:50%;display:flex;gap:6px}.dots i{width:7px;height:7px;border-radius:50%;}
+.section{max-width:1450px;margin:auto;padding:25px clamp(15px,4vw,55px)}.head{display:flex;justify-content:space-between;align-items:end;margin-bottom:13px}.kicker{font-size:9px;text-transform:uppercase;letter-spacing:3px;color:#b87d1c;margin-bottom:4px}.title{font:700 31px "Cormorant Garamond",serif;margin:0}.view{font-size:14px;font-weight:800}.view:hover{color:#b87d1c}
+.catwrap{
+  padding:0;
+  background:transparent;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+}
+.cats{
+  display:grid;
+  grid-template-columns:repeat(8,minmax(0,1fr));
+  gap:12px;
+}
+.cat{
+  min-width:0;
+  min-height:136px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  background:#f4f0ff;
+  border:1px solid rgba(255,255,255,.85);
+  border-radius:15px;
+  padding:8px 7px 10px;
+  text-align:center;
+  overflow:hidden;
+  transition:transform .25s ease,box-shadow .25s ease;
+}
+.cat:nth-child(1){background:#eee7ff}
+.cat:nth-child(2){background:#fde9e5}
+.cat:nth-child(3){background:#e6f1ff}
+.cat:nth-child(4){background:#fce9ee}
+.cat:nth-child(5){background:#eee7ff}
+.cat:nth-child(6){background:#fff0d9}
+.cat:nth-child(7){background:#ffe9df}
+.cat:nth-child(8){background:#e5f4f6}
+.cat:nth-child(9){background:#eef1f2}
+.cat:hover{
+  transform:translateY(-5px);
+  box-shadow:0 12px 25px rgba(20,35,60,.10);
+}
+.cat img{
+  width:100%;
+  height:83px;
+  object-fit:contain;
+  margin-bottom:5px;
+  mix-blend-mode:multiply;
+}
+.cat b{
+  display:block;
+  font-size:10px;
+  line-height:1.2;
+  color:var(--ink);
+}
+.cat small{
+  display:block;
+  margin-top:4px;
+  font-size:7.5px;
+  line-height:1.25;
+  color:#657080;
+}
+.promos{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.promo{height:185px;border-radius:15px;overflow:hidden;position:relative}.promo img{width:100%;height:100%;object-fit:cover;transition:.5s}.promo:hover img{transform:scale(1.04)}.promo:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#061a3550,transparent 55%)}.pill{position:absolute;z-index:2;left:18px;bottom:16px;background:#f4c452;border-radius:22px;padding:9px 16px;font-size:10px;font-weight:800}
+.grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+.product{background:#fff;border:1px solid #eee7df;border-radius:4px;padding:7px 7px 8px;transition:transform .25s ease,box-shadow .25s ease;min-width:0}
+.product:hover{transform:translateY(-4px);box-shadow:0 14px 28px #10203a14}
+.product-img{height:145px;background:#fff;border-radius:2px;overflow:hidden}
+.product-img img{width:100%;height:100%;object-fit:contain}
+.badge{display:inline-block;background:#f4bd4b;color:#13213a;padding:4px 8px;border-radius:9px;font-size:7px;font-weight:800;margin-bottom:5px;line-height:1}
+.product h3{font-size:10px;line-height:1.25;margin:9px 2px 5px;min-height:25px}
+.price{font-size:12px;font-weight:800;margin-left:2px}
+.rating{font-size:9px;color:#dd8a13;margin:4px 2px 9px}
+.order{width:100%;border:0;border-radius:4px;background:#e92d59;color:#fff;padding:9px 8px;font-size:9px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px}
+.order:hover{background:#c82048}
+.about{position:relative;min-height:390px;border-radius:22px;overflow:hidden;background:#f8efde;box-shadow:var(--shadow)}.about img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.about-copy{position:relative;z-index:2;width:48%;padding:52px 48px}.script{font:24px Pacifico,cursive;color:#b87d1c}.about h2{font:700 43px/1 "Cormorant Garamond",serif;margin:9px 0}.about p{font-size:11px;line-height:1.8;color:#4f5968}.points{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:15px}.point{background:#ffffffb8;border:1px solid #dfcfb5;border-radius:10px;padding:10px;font-size:9px}.point b{display:block;font-size:10px;margin-bottom:3px}
+.ratingbox{background:linear-gradient(135deg,#061a35,#0b315d);border-radius:22px;padding:30px;color:#fff}.ratinglayout{display:grid;grid-template-columns:240px 1fr;gap:35px;align-items:center}.score{font:700 72px/1 "Cormorant Garamond";color:#f1c35e}.stars{color:#f3b940;letter-spacing:3px}.rating-bars{display:grid;gap:7px}.bar{display:grid;grid-template-columns:18px 1fr 35px;gap:9px;align-items:center;font-size:9px}.track{height:7px;background:#ffffff1c;border-radius:5px;overflow:hidden}.track i{height:100%;display:block;background:#f1c158;border-radius:5px}
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.review{background:#fff;border:1px solid var(--line);border-radius:15px;padding:17px}.reviewhead{display:flex;gap:10px;align-items:center}.avatar{width:39px;height:39px;border-radius:50%;display:grid;place-items:center;background:#f6e5bf;color:#725018;font-size:10px;font-weight:800}.review b{font-size:10px}.review .stars{font-size:9px;letter-spacing:1px}.review p{font-size:9px;line-height:1.7;color:#626a78}
+.feedback{display:grid;grid-template-columns:1fr 1fr;gap:16px}.panel{background:#fff;border:1px solid var(--line);border-radius:17px;padding:22px}.panel h3{font:700 28px "Cormorant Garamond";margin:0 0 6px}.panel p{font-size:10px;line-height:1.7;color:var(--muted)}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{display:flex;flex-direction:column;gap:4px}.field.full{grid-column:1/-1}.field label{font-size:8px;font-weight:800}.field input,.field textarea,.field select{border:1px solid #ddd4c7;border-radius:8px;padding:9px;font-size:9px;outline:0}.field textarea{min-height:82px}.submit{margin-top:9px;border:0;background:var(--navy);color:#fff;border-radius:22px;padding:10px 18px;font-size:9px;font-weight:800}
+.safety{background:#fffaf1;border:1px solid var(--line);border-radius:21px;padding:25px}.safetygrid{display:grid;grid-template-columns:1.1fr repeat(3,1fr);gap:12px}.safety h2{font:700 31px "Cormorant Garamond";margin:0 0 7px}.safety p{font-size:9px;line-height:1.7;color:var(--muted)}.safe-card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:15px}.seal{width:35px;height:35px;border:1px solid #d9a43d;border-radius:50%;display:grid;place-items:center;color:#ae7517;font-size:9px;font-weight:800}.safe-card h3{font-size:10px;margin:9px 0 5px}.safe-card p{margin:0}.notice{margin-top:12px;background:var(--navy);color:#fff;padding:11px;border-radius:10px;font-size:8px;line-height:1.6}
+.news{height:145px;border-radius:18px;overflow:hidden;position:relative}.news img{width:100%;height:100%;object-fit:cover}.news:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#061a35dd,#061a3575 55%,transparent)}.newscontent{position:relative;z-index:2;color:#fff;height:100%;display:flex;align-items:center;justify-content:space-between;padding:25px 32px;gap:20px}.news h2{font:700 28px "Cormorant Garamond";margin:0 0 4px}.news p{font-size:8px;margin:0}.subscribe{display:flex;width:min(390px,100%);height:37px;background:#fff;border-radius:20px;overflow:hidden}.subscribe input{flex:1;border:0;outline:0;padding:0 12px;font-size:9px}.subscribe button{border:0;background:#f0bd4e;padding:0 17px;font-size:9px;font-weight:800}
+.footer{/*background:var(--navy);*/ background-image:url("assets/hero-rocket.png"); background-size: cover; color:#fff }.footer-art{height:125px;overflow:hidden}.footer-art img{width:100%;height:100%;object-fit:cover}.footergrid{max-width:1200px;margin-top:160px;padding:25px 20px 15px;display:grid;grid-template-columns:repeat(4,1fr);gap:28px}.footer h4{font-size:10px;margin:0 0 10px}.footer a,.footer p{font-size:8px;color:#c9d3df;margin:6px 0;display:block}.bottom{max-width:1200px;margin:auto;border-top:1px solid #fff2;padding:12px 20px 18px;display:flex;justify-content:space-between;font-size:8px;color:#9eacbd}
+.toast{position:fixed;right:16px;bottom:16px;background:var(--navy);color:#fff;padding:11px 15px;border-radius:9px;font-size:9px;opacity:0;transform:translateY(10px);transition:.2s;z-index:99}.toast.show{opacity:1;transform:none}.reveal{opacity:0;transform:translateY(16px);transition:.65s}.reveal.show{opacity:1;transform:none}
+#islogo{width:100%;height:100%;object-fit:contain}.islogo:hover{transform:scale(1.05)}
+#isLogo{width:48px;height:48px;display:grid;place-items:center;position:relative;color:#d52044;font-size:36px}.islogo{width:100%;height:100%;object-fit:contain}.islogo:hover{transform:scale(1.05)}
+#n{
+  font-size: 15px;
+}
+@media(max-width:1100px){.cats{grid-template-columns:repeat(5,1fr)}.grid{grid-template-columns:repeat(4,1fr)}.links{gap:14px}.safetygrid{grid-template-columns:1fr 1fr}.safetygrid>.safetyintro{grid-column:1/-1}}
+@media(max-width:780px){.top{padding:0}.top-group{gap:22px;padding-right:22px}.top-track{animation-duration:18s}.nav{height:60px;padding:0 14px;gap:11px}.links{display:none}.search{margin-left:auto;width:160px}.hamb{display:block}.hero{height:500px}.hero>img{object-position:60% center}.hero-copy{left:20px;right:20px}.hero h1{font-size:51px}.hero p{font-size:12px}.section{padding:22px 14px}.cats{display:flex;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}.cats::-webkit-scrollbar{display:none}.cat{min-width:126px;flex:0 0 126px;min-height:138px}.promos{grid-template-columns:1fr}.promo{height:165px}.grid{display:flex;overflow-x:auto;grid-template-columns:none;gap:9px;padding-bottom:8px;scrollbar-width:none}.grid::-webkit-scrollbar{display:none}.product{min-width:170px;flex:0 0 170px}.product-img{height:140px}.about{min-height:540px}.about img{object-position:65% center}.about-copy{width:100%;padding:28px 20px;background:linear-gradient(90deg,#fffaf1ee,#fffaf1c7 65%,transparent)}.points{grid-template-columns:1fr}.ratinglayout{grid-template-columns:1fr;gap:20px}.reviews,.feedback{grid-template-columns:1fr}.safetygrid{grid-template-columns:1fr}.safetygrid>.safetyintro{grid-column:auto}.newscontent{flex-direction:column;align-items:flex-start;justify-content:center}.subscribe{width:100%}.footergrid{grid-template-columns:1fr 1fr}.bottom{flex-direction:column;gap:6px}}
+@media(max-width:430px){.search{width:130px}.hero h1{font-size:46px}.proof{gap:10px}.grid{grid-template-columns:1fr 1fr}.footergrid{grid-template-columns:1fr 1fr}}
+@media(max-width:780px) {
+    .hero {
+        height: 500px;
+    }
+
+    .hero>img {
+        object-position: 70% center;
+    }
+}
+@media (max-width: 780px) {
+
+  .hamb {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    border: 1px solid #eadfcd;
+    border-radius: 10px;
+    background: #fffaf1;
+    color: #061a35;
+    cursor: pointer;
+    font-size: 23px;
+    line-height: 1;
+    padding: 0;
+    z-index: 102;
+  }
+
+  .links.open {
+    display: flex;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 14px;
+    right: 14px;
+    z-index: 101;
+
+    flex-direction: column;
+    gap: 0;
+    padding: 8px;
+
+    background: #fff;
+    border: 1px solid #eadfcd;
+    border-radius: 14px;
+
+    box-shadow: 0 18px 45px rgba(6, 26, 53, 0.18);
+
+    animation: menuDrop 0.18s ease-out;
+  }
+
+  .links.open a {
+    display: block;
+    padding: 13px 14px;
+    border-radius: 9px;
+    font-size: 12px;
+  }
+
+  .links.open a:hover,
+  .links.open a.active {
+    background: #fff7e5;
+    color: #b57a18;
+  }
+
+  .links.open a.active::after {
+    display: none;
+  }
+
+  @keyframes menuDrop {
+    from {
+      opacity: 0;
+      transform: translateY(-7px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Why Choose Us — matched to the site theme */
+.why-section{padding-top:8px}
+.why-box{
+  position:relative;
+  overflow:hidden;
+  border-radius:22px;
+  padding:30px;
+  background:var(--cream);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+}
+.why-box:before{
+  content:"";
+  position:absolute;
+  width:260px;
+  height:260px;
+  right:-90px;
+  top:-110px;
+  border-radius:50%;
+  background:rgba(228,174,67,.10);
+  pointer-events:none;
+}
+.why-head{
+  position:relative;
+  z-index:1;
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:18px;
+  margin-bottom:20px;
+}
+.why-head .kicker{color:#b87d1c}
+.why-head .title{color:var(--ink)}
+.why-sub{
+  font-size:10px;
+  line-height:1.7;
+  color:var(--muted);
+  max-width:620px;
+  margin:5px 0 0;
+}
+.why-grid{
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+.why-card{
+  min-height:145px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:17px;
+  transition:.25s ease;
+}
+.why-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 15px 30px #10203a14;
+  border-color:#e0c68f;
+}
+.why-icon{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  border:1px solid #d9a43d;
+  display:grid;
+  place-items:center;
+  margin-bottom:12px;
+  color:#ae7517;
+  font-family:"Cormorant Garamond",serif;
+  font-size:16px;
+  font-weight:700;
+}
+.why-card h3{
+  font-size:11px;
+  margin:0 0 6px;
+  color:var(--ink);
+}
+#f{
+  font-size: 10px;
+}
+.why-card p{
+  font-size:9px;
+  line-height:1.65;
+  margin:0;
+  color:var(--muted);
+}
+.why-action{
+  position:relative;
+  z-index:1;
+  margin-top:18px;
+  border:0;
+  border-radius:22px;
+  padding:11px 18px;
+  background:var(--navy);
+  color:#fff;
+  font-size:9px;
+  font-weight:800;
+  cursor:pointer;
+  transition:.2s;
+}
+.why-action:hover{background:#b77d1e}
+
+/* Legal / information article modal */
+.article-modal{
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:rgba(0,0,0,.64);
+  backdrop-filter:blur(3px);
+}
+.article-modal.open{display:flex}
+.article-dialog{
+  position:relative;
+  width:min(650px,100%);
+  max-height:min(88vh,780px);
+  overflow:auto;
+  border-radius:18px;
+  background:#fff;
+  box-shadow:0 25px 80px rgba(0,0,0,.35);
+  padding:30px 30px 28px;
+}
+.article-close{
+  position:absolute;
+  top:12px;
+  right:15px;
+  width:36px;
+  height:36px;
+  border:0;
+  border-radius:50%;
+  background:#fff;
+  color:#111;
+  font-size:25px;
+  line-height:1;
+  cursor:pointer;
+}
+.article-logo{
+  width:170px;
+  height:170px;
+  object-fit:contain;
+  display:block;
+  margin:8px auto 20px;
+}
+.article-dialog p{
+  margin:0;
+  color:#171717;
+  font-size:16px;
+  line-height:1.8;
+}
+.article-dialog .article-title{
+  text-align:center;
+  font:700 30px "Cormorant Garamond",serif;
+  color:#061a35;
+  margin:0 0 8px;
+}
+.article-dialog .article-note{
+  margin-top:16px;
+  padding:12px 14px;
+  border-left:4px solid #dca33d;
+  background:#fff8e8;
+  border-radius:8px;
+  font-size:12px;
+  line-height:1.6;
+}
+@media(max-width:900px){
+  .why-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:780px){
+  .why-box{padding:22px 16px}
+  .why-head{display:block}
+  .why-grid{grid-template-columns:1fr 1fr}
+  .why-card{min-height:125px;padding:14px}
+  .why-action{width:100%}
+  .article-modal{padding:10px}
+  .article-dialog{padding:26px 18px 22px;border-radius:15px;max-height:92vh}
+  .article-logo{width:145px;height:145px;margin-top:5px}
+  .article-dialog p{font-size:14px;line-height:1.75}
+  .article-dialog .article-title{font-size:25px}
+}
+@media(max-width:430px){
+  .why-grid{grid-template-columns:1fr}
+}
+
+
+@media(min-width:781px){
+  .hero:after{background:none}
+}
+.contact-choice{position:fixed;right:15px;bottom:18px;z-index:80}
+.contact-choice summary{display:none}
+.contact-choice-options{display:flex!important;flex-direction:column;align-items:center;gap:10px;margin:0;padding:0;border:0;background:transparent;box-shadow:none}
+.contact-choice-options a{width:54px;height:54px;display:grid;place-items:center;padding:0;border-radius:50%;color:#fff;background:#25d366;box-shadow:0 8px 24px rgba(13,74,47,.24);transition:transform .2s ease}
+.contact-choice-options a:first-child{background:#061a35}
+.contact-choice-options a:hover{transform:translateY(-2px);color:#fff}
+.contact-choice-options svg{width:25px;height:25px}
+.contact-choice .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+</style></head><body>
+<div class="top">
+  <div class="top-track">
+    <div class="top-group">
+      <span>Diwali Sale is On!</span><span>Exclusive Festive Offers</span><span>90% OFF</span><span>Eco Friendly Options</span><span>☏ 9940051105</span><span>✉ shrisenthuracrackers@gmail.com</span>
+    </div>
+    <div class="top-group" aria-hidden="true"><span>Diwali Sale is On!</span><span>Exclusive Festive Offers</span><span>90% OFF</span><span>Delivery Across South India</span><span>Eco Friendly Options</span><span>☏ 9940051105</span><span>✉ shrisenthuracrackers@gmail.com</span></div>
+    <div class="top-group" aria-hidden="true"><span>Diwali Sale is On!</span><span>Exclusive Festive Offers</span><span>90% OFF</span><span>Delivery Across South India</span><span>Eco Friendly Options</span><span>☏ 9940051105</span><span>✉ shrisenthuracrackers@gmail.com</span></div>
+    <div class="top-group" aria-hidden="true"><span>Diwali Sale is On!</span><span>Exclusive Festive Offers</span><span>90% OFF</span><span>Delivery Across South India</span><span>Eco Friendly Options</span><span>☏ 9940051105</span><span>✉ shrisenthuracrackers@gmail.com</span></div>
+  </div>
+</div>
+<header class="nav">
+  <a class="logo" href="#home" id="isLogo"><img id="islogo" src="assets/ssLogo.png" alt=""></a>
+  <nav class="links">
+    <a class="active" href="#home" id="n">Home</a>
+    <a href="new.html" id="n">Shop</a>
+    <a href="combos.html" id="n">Combo Packs</a>
+    <a href="#combos" id="n">Offers</a>
+    <a href="#new" id="n">About</a>
+    <a href="#offers" id="n">Feedback</a>
+    <a href="#contact" id="n">Contact</a>
+  </nav><form class="search" onsubmit="event.preventDefault();document.querySelector('#shop').scrollIntoView({behavior:'smooth'})"><input id="search" placeholder="Search for crackers..."><button>⌕</button></form><button class="hamb" id="hambBtn" type="button" aria-label="Open navigation menu" aria-expanded="false">
+  ☰
+</button></header>
+  <details class="contact-choice" open>
+    <summary><img src="data:image/png;base64,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" alt="whatsapp--v1"></summary>
+    <div class="contact-choice-options">
+      <a href="tel:+919940051105" aria-label="Call Shri Senthura Crackers" title="Call Shri Senthura Crackers"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.96.36 1.9.7 2.8a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.84.58 2.8.7a2 2 0 0 1 1.73 2.03Z"/></svg><span class="sr-only">Call 99400 51105</span></a>
+      <a href="https://wa.me/919940051105" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Shri Senthura Crackers" title="WhatsApp Shri Senthura Crackers"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.5a8 8 0 0 1-11.9 7L4 20l1.5-3.7A8 8 0 1 1 20 11.5Z"/><path d="M8.5 8.2c.2-.5.5-.6.9-.6h.6l1.1 2.3-.9 1c.6 1.2 1.5 2.1 2.7 2.7l1-.9 2.3 1.1v.6c0 .4-.1.7-.6.9-1 .4-2.1.3-3.2-.3a10 10 0 0 1-4-4c-.6-1.1-.7-2.2.1-2.8Z"/></svg><span class="sr-only">WhatsApp us</span></a>
+    </div>
+  </details>
+<section class="hero" id="home"><img src="assets/footer-family.png" alt="Diwali celebration with fireworks"><div class="hero-copy"><div class="eyebrow">Spark traditions · spread happiness</div><h1>Shri Senthura Crackers<br><span style="font-size: 50px;">Made for Celebration</span></h1><p>Premium crackers for brighter moments and happier togetherness, thoughtfully selected for festive celebrations.</p><a class="cta" href="#" style="font-size: small;">Download Price List</a><br><a class="cta" href="new.html" style="font-size: small;">Shop Now →</a><div class="proof"><div><span>✓</span>Safe & Certified</div><div><span>◌</span>Eco Friendly Options</div><div><span>▣</span>Fast & Reliable Delivery</div></div></div><div class="dots"><i></i><i></i><i></i></div></section>
+
+<section class="section reveal"><div class="head"><div><h2 class="title">Shop By Category</h2></div><a class="view" href="new.html">View All →</a></div><div class="catwrap"><div class="cats" id="cats"></div></div></section>
+<section class="section reveal" id="shop"><div class="head"><div><div class="kicker">Handpicked favourites</div><h2 class="title">Featured Products</h2></div><a class="view" href="new.html">Shop Now →</a></div><a href="new.html"><div class="grid" id="products"></div></a></section>
+<section class="section reveal" id="combos"><div class="head"><div><div class="kicker">Festive highlights</div><h2 class="title">Celebrate Your Way</h2></div></div><div class="promos"><a class="promo" href="combos.html"><img src="assets/combo.png" alt="Combo packs"><span class="pill">Explore Combos →</span></a><a class="promo" href="go-green.html"><img src="assets/green.png" alt="Eco friendly options"><span class="pill">Go Green →</span></a><a class="promo" href="safety.html"><img src="assets/gift2.png" alt="Festive gift hampers"><span class="pill">Safety Regulations→</span></a></div></section>
+
+<section class="section reveal" id="new"><div class="about"><img src="assets/about.png" alt="Festive family celebration"><div class="about-copy"><div class="script">Our Story</div><h2>Made for moments<br>worth remembering.</h2><p>Our collection brings traditional favourites, festive gift packs and celebration essentials into one easy-to-browse experience.</p><div class="points"><div class="point"><b>Established in 2022</b>Lighting up celebrations with safe, premium firecrackers.</div><div class="point"><b>Delivery Anywhere</b>Delivering celebrations across South India.</div><div class="point"><b>Thoughtful Selection</b>Curated categories for every celebration.</div><div class="point"><b>Clear Ordering</b>Order directly without creating an account.</div><div class="point"><b>Celebration First</b>Warm presentation and simple discovery.</div><div class="point"><b>Responsible Choice</b>Safety information stays visible before ordering.</div></div></div></div></section>
+
+
+<section class="section reveal why-section" id="why-us">
+  <div class="why-box">
+    <div class="why-head">
+      <div>
+        <div class="kicker">Why choose us</div>
+        <h2 class="title">Celebrate with confidence.</h2>
+        <p class="why-sub">A festive shopping experience built around trusted sourcing, quality, compliance and careful packaging.</p>
+      </div>
+    </div>
+
+    <div class="why-grid">
+      <article class="why-card">
+        <div class="why-icon">01</div>
+        <h3>Sivakasi Sourced</h3>
+        <p>Products are presented as sourced from Sivakasi, the well-known fireworks hub.</p>
+      </article>
+
+      <article class="why-card">
+        <div class="why-icon">02</div>
+        <h3>Quality Certified</h3>
+        <p>Quality-focused selection for a dependable and enjoyable festive experience.</p>
+      </article>
+
+      <article class="why-card">
+        <div class="why-icon">03</div>
+        <h3>SC Compliant</h3>
+        <p>We highlight compliance and responsible practices throughout the ordering journey.</p>
+      </article>
+
+      <article class="why-card">
+        <div class="why-icon">04</div>
+        <h3>Safe Packaging</h3>
+        <p>Products are presented with safety-conscious packaging and handling in mind.</p>
+      </article>
+    </div>
+
+    <button class="why-action" type="button" id="openArticle">Read Important Legal &amp; Order Notice →</button>
+  </div>
+</section>
+
+<section class="section reveal"><div class="ratingbox"><div class="head"><div><div class="kicker" style="color:#e8bc58">Customer voice</div><h2 class="title" style="color:#fff">Customer Ratings</h2></div></div><div class="ratinglayout"><div><div class="score">4.8</div><div class="stars">★★★★★</div><div style="font-size:8px;color:#cbd5e2;margin-top:6px">Based on customer feedback</div></div><div class="rating-bars"><div class="bar"><span>5</span><div class="track"><i style="width:92%"></i></div><span>92%</span></div><div class="bar"><span>4</span><div class="track"><i style="width:6%"></i></div><span>6%</span></div><div class="bar"><span>3</span><div class="track"><i style="width:2%"></i></div><span>2%</span></div><div class="bar"><span>2</span><div class="track"><i style="width:0%"></i></div><span>0%</span></div><div class="bar"><span>1</span><div class="track"><i style="width:0%"></i></div><span>0%</span></div></div></div></div></section>
+
+<section class="section reveal"><div class="head"><div><div class="kicker">Real words</div><h2 class="title">What Customers Say</h2></div></div><div class="reviews"><article class="review"><div class="reviewhead"><div class="avatar">PS</div><div><b>Priya S.</b><div class="stars">★★★★★</div></div></div><p>“The collection is easy to browse and the festive presentation makes choosing products simple.”</p></article><article class="review"><div class="reviewhead"><div class="avatar">AK</div><div><b>Arun K.</b><div class="stars">★★★★★</div></div></div><p>“Having product categories and safety information together makes the ordering journey clearer.”</p></article><article class="review"><div class="reviewhead"><div class="avatar">RM</div><div><b>Riya M.</b><div class="stars">★★★★☆</div></div></div><p>“The gift and combo sections are useful when shopping for the whole family.”</p></article></div></section>
+
+<section class="section reveal" id="offers"><div class="feedback"><div class="panel"><div class="kicker">Your experience matters</div><h3>Send Feedback</h3><h4>☏ 9940051105</h4><h4>✉ shrisenthuracrackers@gmail.com</h4><p>Share a product suggestion or tell us what would make the ordering experience better.</p><div class="points"><div class="point"><b>Product Suggestions</b>Tell us what you want next.</div><div class="point"><b>Experience</b>Tell us what felt easy or difficult.</div></div></div><div class="panel"><form id="feedbackForm"><div class="formgrid"><div class="field"><label>Name</label><input required placeholder="Your name"></div><div class="field"><label>Email</label><input required type="email" placeholder="you@example.com"></div><div class="field full"><label>Rating</label><select required><option value="">Choose rating</option><option>5 — Excellent</option><option>4 — Very good</option><option>3 — Good</option><option>2 — Needs improvement</option><option>1 — Poor</option></select></div><div class="field full"><label>Feedback</label><textarea required placeholder="Write your feedback..."></textarea></div></div><button class="submit" type="submit">Submit Feedback →</button></form></div></div></section>
+
+<section class="section reveal" id="about"><div class="safety"><div class="safetygrid"><div class="safetyintro"><div class="kicker">Before you order</div><h2>Safety & Regulation</h2><p>Read the manufacturer instructions and check current local requirements before purchase or use. Rules, permitted hours and restrictions can vary by location.</p></div><div class="safe-card"><div class="seal">01</div><h3>Use as Directed</h3><p>Follow the instructions supplied with each product and use only as intended.</p></div><div class="safe-card"><div class="seal">02</div><h3>Adult Supervision</h3><p>Children should not handle fireworks; adults should supervise permitted use.</p></div><div class="safe-card"><div class="seal">03</div><h3>Follow Local Rules</h3><p>Check applicable local restrictions, permitted hours and safety requirements.</p></div></div><div class="notice">Safety note: This demo storefront does not replace official regulations, manufacturer instructions or local authority guidance.</div></div></section>
+
+<footer class="footer" id="contact"><div class="footer-art"></div><div class="footergrid"><div><h4>Quick Links</h4><a id="f" href="#home">Home</a><a id="f" href="#shop" id="f">Shop</a><a href="#combos" id="f">Combo Packs</a><a href="#offers" id="f">Offers</a><a href="billing/billing.html" id="f">Billing</a></div><div><h4>Customer Support</h4><a href="new.html" id="f">Order Products</a><a href="#offers" id="f">Feedback</a><a href="#about" id="f">Safety</a><a href="#contact" id="f">Contact</a><a href="billing/admin2.html" id="f">Admin</a></div><div><h4>Contact Info📱</h4><a href="#" id="f">576, Bharathiyar Road</a><a href="#" id="f">Murugu Thottam, Thalatheru</a><a href="#" id="f">Karaikal-609609</a><a href="https://wa.me/919940051105" target="_blank" rel="noopener noreferrer" style="font-size: 12px;">9940051105</a></div></div><div class="bottom"><span>© 2026 Shri Senthura Crackers. All rights reserved.</span><span>Festive moments, thoughtfully presented.</span></div></footer>
+
+<div class="article-modal" id="articleModal" role="dialog" aria-modal="true" aria-labelledby="articleModalTitle">
+  <div class="article-dialog">
+    <button class="article-close" id="closeArticle" type="button" aria-label="Close article">×</button>
+    <img class="article-logo" src="assets/ssLogo.png" alt="Shri Senthura Crackers logo">
+    <h2 class="article-title" id="articleModalTitle">Important Legal &amp; Order Notice</h2>
+    <p>
+      As per 2018 supreme court order, online sale of firecrackers are not permitted!
+      We value our customers and at the same time, respect jurisdiction. We request you
+      to add your products to the cart and submit the required crackers through the
+      enquiry button. We will contact you within 24 hrs and confirm the order through
+      WhatsApp or phone call. Please add and submit your enquiries and enjoy your Diwali
+      with Shri Senthura Crackers. As a company following 100% legal &amp; statutory compliances and
+      all our shops, go-downs are maintained as per the explosive acts. We send the
+      parcels through registered and legal transport service providers as like every other
+      major companies in Sivakasi is doing so.
+    </p>
+    <div class="article-note">
+      <strong>Important:</strong> The information above is displayed as the supplied
+      business notice. Customers should also check current applicable laws, manufacturer
+      instructions and local requirements before purchasing or using fireworks.
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script>
+const config = window.SUPABASE_CONFIG || globalThis.SUPABASE_CONFIG;
+const sb = config && config.url && config.anonKey
+  ? window.supabase.createClient(config.url, config.anonKey, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: false, storageKey: 'sv-storefront-auth-token' } })
+  : null;
+
+const state = { products: [], categories: [] };
+const staticCategories = [
+  { name: 'Sparklers', subtitle: 'Brighten Moments', image: 'assets/categories/sparkles.png' },
+  { name: 'Flower Pots', subtitle: 'Colourful Fun', image: 'assets/categories/flowerPot.png' },
+  { name: 'Ground Chakkar', subtitle: 'Spin the Joy', image: 'assets/categories/groundChakkars.png' },
+  { name: 'Rockets', subtitle: 'Reach New Heights', image: 'assets/categories/rockets.png' },
+  { name: 'Sky Shots', subtitle: 'Light Up the Sky', image: 'assets/categories/skyShots.png' },
+  { name: 'Multi Shots', subtitle: 'Bigger Celebrations', image: 'assets/categories/multiShots.png' },
+  { name: 'Kids Special', subtitle: 'Safe & Fun', image: 'assets/categories/kidsSpecial.png' },
+  
+  { name: 'All Products', subtitle: 'Explore More', image: 'assets/categories/categories.png', all: true }
+];
+
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char]));
+}
+
+function money(value) {
+  return '₹' + Number(value || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function renderCategories(list = staticCategories) {
+  const container = document.querySelector('#cats');
+  if (!container) return;
+  container.innerHTML = list.map((category) => {
+    const image = category.image_url || category.image || 'assets/ssLogo.png';
+    const href = category.all ? 'new.html' : `new.html?category=${encodeURIComponent(category.name)}`;
+    return `<a class="cat" href="${href}"><img src="${image}" alt="${escapeHtml(category.name)}"><b>${escapeHtml(category.name)}</b>${category.subtitle ? `<small>${escapeHtml(category.subtitle)}</small>` : ''}</a>`;
+  }).join('');
+}
+
+function renderProducts(list) {
+  const container = document.querySelector('#products');
+  if (!container) return;
+  const visibleProducts = (list || []).slice(0, 12);
+  container.innerHTML = visibleProducts.map((product, index) => {
+    const image = product.image_url || product.image || 'assets/ssLogo.png';
+    const badge = index % 3 === 0 ? 'Bestseller' : index % 3 === 1 ? 'Popular' : 'Trending';
+    const rating = Number(product.rating || 4.8);
+    const reviewCount = Number(product.reviews || product.stock_quantity || 120);
+return `<article class="product"><span class="badge">${badge}</span><div class="product-img"><img src="${image}" alt="${escapeHtml(product.name)}" width="240" height="145" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='assets/ssLogo.png'"></div><h3>${escapeHtml(product.name)}</h3><div class="price">${money(product.selling_price || product.price || 0)}</div><div class="rating">★ ${rating.toFixed(1)} (${reviewCount})</div><!--<button class="order" onclick="location.href='new.html?product='+encodeURIComponent('${escapeHtml(product.name)}')">🛒 Order</button>--></article>`;
+  }).join('');
+}
+
+async function loadCatalog() {
+  if (!sb) {
+    renderCategories([{ name: 'Sparkling Collection', image: 'assets/ssLogo.png' }]);
+    renderProducts([]);
+    return;
+  }
+
+  try {
+    const { data: productRows, error: productError } = await sb
+      .from('products')
+      .select('id,name,original_price,selling_price,stock_quantity,image_url')
+      .eq('is_active', true)
+      .order('created_at', { ascending: true })
+      .limit(12);
+
+    if (productError) throw productError;
+
+    state.categories = staticCategories;
+    state.products = (productRows || []).map((product) => ({
+      ...product,
+      selling_price: Number(product.selling_price || product.price || 0),
+      original_price: Number(product.original_price || product.selling_price || 0),
+      rating: Number(product.rating || 4.8),
+      reviews: Number(product.reviews || 120)
+    }));
+
+    renderCategories(staticCategories);
+    renderProducts(state.products.length ? state.products : []);
+  } catch (error) {
+    console.error('Catalog load failed:', error);
+    renderCategories(staticCategories);
+    renderProducts([]);
+    toast('Products could not be loaded. Please refresh the page.');
+  }
+}
+
+function applySearchFilter() {
+  const searchValue = document.querySelector('#search')?.value || '';
+  const query = searchValue.toLowerCase().trim();
+  const filteredProducts = state.products.filter((product) => !query || product.name.toLowerCase().includes(query));
+  renderProducts(filteredProducts);
+}
+
+function toast(message) {
+  const t = document.querySelector('#toast');
+  if (!t) return;
+  t.textContent = message;
+  t.classList.add('show');
+  clearTimeout(window.__storefrontToastTimer);
+  window.__storefrontToastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+async function feedback(e) {
+  e.preventDefault();
+  if (!sb) {
+    toast('Feedback service is unavailable.');
+    return;
+  }
+
+  const form = e.target;
+  const name = form.querySelector('input[placeholder="Your name"]').value.trim();
+  const email = form.querySelector('input[type="email"]').value.trim();
+  const rating = form.querySelector('select').value;
+  const comment = form.querySelector('textarea').value.trim();
+
+  if (!name || !email || !rating || !comment) {
+    toast('Please complete all feedback fields.');
+    return;
+  }
+
+  try {
+    const { error } = await sb.from('customer_feedback').insert({
+      name,
+      email,
+      rating: Number(rating.split(' ')[0]),
+      feedback: comment,
+      source: 'website'
+    });
+
+    if (error) throw error;
+    toast('Thank you for your feedback.');
+    form.reset();
+  } catch (error) {
+    console.error('Feedback save failed:', error);
+    toast('Feedback could not be saved right now.');
+  }
+}
+
+function subscribe(e) {
+  e.preventDefault();
+  toast('Thanks — you\'re subscribed.');
+  e.target.reset();
+}
+
+
+// Important legal/order article popup
+const articleModal = document.getElementById('articleModal');
+const openArticle = document.getElementById('openArticle');
+const closeArticle = document.getElementById('closeArticle');
+
+function closeArticleModal(){
+  articleModal?.classList.remove('open');
+  document.body.style.overflow = '';
+}
+function openArticleModal(){
+  articleModal?.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+openArticle?.addEventListener('click', openArticleModal);
+closeArticle?.addEventListener('click', closeArticleModal);
+
+articleModal?.addEventListener('click', (event) => {
+  if (event.target === articleModal) closeArticleModal();
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') closeArticleModal();
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+  document.querySelector('#search')?.addEventListener('input', applySearchFilter);
+  const feedbackForm = document.getElementById('feedbackForm');
+  if (feedbackForm) feedbackForm.addEventListener('submit', feedback);
+  loadCatalog();
+});
+
+new IntersectionObserver((entries) => entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add('show')), { threshold: 0.12 }).observe(document.querySelector('.reveal'));
+document.querySelectorAll('.reveal').forEach((element) => new IntersectionObserver((entries) => entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add('show')), { threshold: 0.12 }).observe(element));
+
+
+
+const hambBtn = document.getElementById("hambBtn");
+const mobileLinks = document.querySelector(".links");
+
+hambBtn.addEventListener("click", () => {
+    const isOpen = mobileLinks.classList.toggle("open");
+
+    hambBtn.setAttribute("aria-expanded", isOpen);
+
+    hambBtn.textContent = isOpen ? "×" : "☰";
+
+    hambBtn.setAttribute(
+        "aria-label",
+        isOpen ? "Close navigation menu" : "Open navigation menu"
+    );
+});
+
+mobileLinks.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+        mobileLinks.classList.remove("open");
+
+        hambBtn.textContent = "☰";
+        hambBtn.setAttribute("aria-expanded", "false");
+        hambBtn.setAttribute("aria-label", "Open navigation menu");
+    });
+});
+
+window.addEventListener("resize", () => {
+    if (window.innerWidth > 780) {
+        mobileLinks.classList.remove("open");
+        hambBtn.textContent = "☰";
+        hambBtn.setAttribute("aria-expanded", "false");
+    }
+});
+</script></body></html>

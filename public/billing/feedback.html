@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feedback | Shri Senthura Crackers</title>
+  <link rel="stylesheet" href="css/admin.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="js/common.js"></script>
+  <style>
+    .action-cell { display: flex; justify-content: center; }
+    .view-btn {
+      background: #0b2e55; color: white; border: none; border-radius: 8px;
+      padding: 7px 12px; font-size: 12px; cursor: pointer;
+    }
+    .primary {
+      background: #0b2e55 !important;
+      border-color: #0b2e55 !important;
+      color: white !important;
+    }
+    .modal-backdrop {
+      position: fixed; inset: 0; background: rgba(5, 12, 25, 0.52);
+      display: none; align-items: center; justify-content: center; padding: 20px; z-index: 1000;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal {
+      width: min(560px, 100%); background: white; border-radius: 14px;
+      box-shadow: 0 22px 70px rgba(0,0,0,0.25); overflow: hidden;
+    }
+    .modal-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 20px; border-bottom: 1px solid #e8e1d7;
+      background: #fffaf3;
+    }
+    .modal-body {
+      padding: 20px; max-height: 70vh; overflow: auto; line-height: 1.7;
+      color: #25324a; white-space: pre-wrap;
+    }
+    .close-btn {
+      border: none; background: transparent; cursor: pointer; font-size: 24px; color: #25324a;
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-shell">
+    <main class="page-container">
+      <div class="section-head">
+        <div>
+          <h1 class="section-title">Customer Feedback</h1>
+          <div class="subtle">Website and storefront feedback submissions</div>
+        </div>
+        <button class="primary" id="refreshBtn" type="button">Refresh</button>
+      </div>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2 class="panel-title">Recent Feedback</h2>
+          <span id="resultCount" class="subtle">0 entries</span>
+        </div>
+        <div id="feedbackContainer" class="table-wrap"></div>
+      </section>
+    </main>
+  </div>
+
+  <div id="feedbackModal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <h3 id="modalTitle">Feedback Details</h3>
+        <button class="close-btn" type="button" id="closeModalBtn" aria-label="Close">×</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    if (navToggle && navLinks) navToggle.addEventListener('click', () => navLinks.classList.toggle('nav-open'));
+
+    const admin = window.SVAdmin;
+    const container = document.getElementById('feedbackContainer');
+    const resultCount = document.getElementById('resultCount');
+
+    function escapeHtml(value) {
+      return String(value || '').replace(/[&<>'"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#039;', '"': '&quot;' }[char]));
+    }
+
+    function openFeedbackModal(row) {
+      const modal = document.getElementById('feedbackModal');
+      const modalBody = document.getElementById('modalBody');
+      if (!modal || !modalBody) return;
+
+      modalBody.textContent = row.feedback || 'No feedback message provided.';
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeFeedbackModal() {
+      const modal = document.getElementById('feedbackModal');
+      if (!modal) return;
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+    }
+
+    function renderFeedback(rows) {
+      resultCount.textContent = `${rows.length} entr${rows.length === 1 ? 'y' : 'ies'}`;
+      if (!rows.length) {
+        container.innerHTML = '<div class="empty-state">No feedback submissions yet.</div>';
+        return;
+      }
+
+      container.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Rating</th>
+              <th>Source</th>
+              <th>Received</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows.map((row) => `
+              <tr>
+                <td>${escapeHtml(row.name || '—')}</td>
+                <td>${escapeHtml(row.email || '—')}</td>
+                <td>${'★'.repeat(Number(row.rating || 0))}</td>
+                <td>${escapeHtml(row.source || 'website')}</td>
+                <td>${admin.formatDate(row.created_at, true)}</td>
+                <td class="action-cell"><button class="view-btn" type="button" data-id="${row.id || ''}">View</button></td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+
+      document.querySelectorAll('.view-btn').forEach((button) => {
+        button.addEventListener('click', () => {
+          const rowId = button.dataset.id;
+          const selected = rows.find((item) => String(item.id || '') === String(rowId));
+          if (selected) openFeedbackModal(selected);
+        });
+      });
+    }
+
+    async function loadFeedback() {
+      container.innerHTML = '<div class="empty-state">Loading feedback...</div>';
+      const { data, error } = await admin.sb.from('customer_feedback').select('*').order('created_at', { ascending: false });
+      if (error) {
+        container.innerHTML = `<div class="empty-state">Unable to load feedback: ${escapeHtml(error.message || error)}</div>`;
+        return;
+      }
+      renderFeedback(data || []);
+    }
+
+    document.getElementById('refreshBtn').addEventListener('click', loadFeedback);
+    document.getElementById('closeModalBtn').addEventListener('click', closeFeedbackModal);
+    document.getElementById('feedbackModal').addEventListener('click', (event) => {
+      if (event.target.id === 'feedbackModal') closeFeedbackModal();
+    });
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      await admin.sb.auth.signOut();
+      window.location.href = 'billing.html';
+    });
+
+    (async function initialize() {
+      if (await admin.requireAuth()) {
+        await loadFeedback();
+      }
+    })();
+  </script>
+</body>
+</html>
